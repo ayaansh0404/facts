@@ -1,0 +1,316 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>fun & games</title>
+    <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
+    <style>
+       
+        div {
+            padding: 10px;
+            
+        }
+
+        .d,
+        .upside_down {
+            border-color: green;
+            border-style: dashed;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+
+        }
+
+        button,
+        input {
+            box-shadow: 0px 0px 2px black;
+            border-radius: 5px;
+
+        }
+
+        button {
+            background-color: red;
+            color: white;
+        }
+
+        button:hover {
+            background-color: aqua;
+            color: black;
+            animation-name: box;
+            animation-duration: 3s;
+        }
+
+        @keyframes box {
+            from {
+
+                transform: rotate(0deg);
+
+
+            }
+
+            to {
+
+                transform: rotate(180deg);
+
+
+            }
+        }
+
+        input {
+            height: 40px;
+        }
+
+        .e {
+            border-color: rgb(5, 7, 5);
+            border-style: dotted;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+
+        }
+
+        hr {
+            height: 10px;
+        }
+
+        .f {
+            border-color: red;
+            border-style: double;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+        }
+
+        .e,
+        .d,
+        .f {
+            overflow: x;
+        }
+
+        #ud {
+            transform: rotate(180deg);
+            font-size: xx-large;
+        }
+
+        .cursive {
+            border-color: rgb(5, 7, 5);
+            border-style: dotted;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+        }
+
+        #cu {
+            font-family: "Brush Script MT",cursive;
+            font-size: xx-large;
+        }
+
+         footer {
+            background: linear-gradient(red, orange);
+            text-align: center;
+            padding: 10px;
+            color: white;
+        }
+        .f{
+            border-radius: 10px; 
+        }
+
+        .d,
+        .cursive,
+        .e,
+        .f,
+        .upside_down {
+           width: 230px;
+        }
+        hr{
+            height: 10px;
+        }
+        nav{
+            background-color: red;
+           
+        }
+        i{
+            color: black;
+        }
+        i:hover{
+            color: white;
+        }
+    </style>
+    <!-- javascript starts here -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- javascript ends here -->
+</head>
+
+<body>
+    <nav><a href="http://127.0.0.1:5500/animals.html" class="d">
+            <h1><i class="fa-solid fa-house"></i></h1>
+        </a></nav>
+    <div class="d">
+        <h1>Word Reverser</h1>
+        <p>don't waste time geting a piece of paper and finding the reversed word, <br>when you can just do it here in 2
+            seconds. </p>
+        <form action="">
+            <input type="text" id="wordinput" placeholder="Enter a word">
+
+            <button onclick="reverseWord()" type="reset" value="Reset">Reverse</button>
+        </form>
+        <p id="reversedWord"></p>
+
+    </div>
+    <hr>
+    <div class="e">
+        <h1> I will guess your name</h1>
+        <p>Enter your name here</p>
+        <form action="">
+            <input type="text" placeholder="enter here" id="name">
+            <button type="reset" value="Reset" onclick="b()">click me</button>
+            <p id="p"></p>
+        </form>
+    </div>
+    <hr>
+    <div class="f">
+        <h1>Calculator</h1>
+        <p>enter 2 numbers and then click + or - or x or %.</p>
+        <input type="number" name="" id="cal" placeholder="enter number 1, here ">
+        <input type="number" name="" id="cal2" placeholder="enter number 2 here">
+        <br>
+        <button id="+" onclick="plus()">+</button>
+        <button id="%" onclick="div()">%</button>
+        <button id="x" onclick="mul()">x</button>
+        <button id="-" onclick="min()">-</button>
+        <p id="ans"></p>
+
+    </div>
+    <hr>
+    <div class="upside_down">
+        <h1>Upside down generater</h1>
+        <input type="text" placeholder="enter word here" id="in_down"><br>
+        <button onclick="usd()">click me to make it upside down</button><br>
+        <p id="ud" text-align="left"></p>
+    </div>
+    <hr>
+    <div class="cursive">
+        <h1>Cursive generater</h1>
+        <input type="text" placeholder="enter word here" id="in_cur"><br>
+        <button onclick="c()">click me to make it cursive</button><br>
+        <p id="cu" text-align="left"></p>
+    </div>
+    <br>
+    <footer>
+        <p><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
+    </footer>
+    <script>
+
+        function b() {
+            let name = document.getElementById('name').value
+            if (name == "") {
+                document.getElementById("p").innerHTML = `your name is _____  (don't ask how I know🤣😜)`
+                Swal.fire({
+                title: `your name is _____ (don't ask how I know🤣😜)`
+                });
+            }
+            else {
+                document.getElementById("p").innerHTML = `your name is ${name} (don't ask how I know🤣😜)`
+                 Swal.fire({
+                title: `your name is ${name} (don't ask how I know🤣😜)`,
+            });
+            }
+        }
+        function reverseWord() {
+            let wordInput = document.getElementById('wordinput').value;
+            let word = document.getElementById('wordinput').value;
+            let reversedWordElement = document.getElementById('reversedWord');
+
+            if (wordInput == "" || word == "") {
+                reversedWordElement.innerHTML = `the reversed word of ____ is _____`;
+                 Swal.fire({
+                title: `the reversed word of ____ is _____`,
+                icon: 'success'
+            });
+
+            } else {
+                let reversedWord = wordInput.split('').reverse().join('');
+
+
+
+                reversedWordElement.innerHTML = `the reversed word of ${word} is ${reversedWord}`;
+                Swal.fire({
+                title: `the reversed word of ${word} is ${reversedWord}`,
+                icon: 'success'
+            });
+                
+            }
+        }
+        function plus() {
+            let x = document.getElementById("cal").value;
+            let y = document.getElementById("cal2").value;
+            x = parseFloat(x)
+            y = parseFloat(y)
+            let resPlus = x + y;
+
+            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
+            // alert(`the anwser is ${resPlus}`)
+            Swal.fire({
+                title: `the anwser is ${resPlus}`,
+                icon: 'success'
+                 
+            });
+
+        }
+        function mul() {
+            let x = document.getElementById("cal").value;
+            let y = document.getElementById("cal2").value;
+            let resPlus = x * y;
+           
+            Swal.fire({
+                title: `the anwser is ${resPlus}`,
+                icon: 'success'
+            });
+
+
+
+        }
+        function min() {
+            let x = document.getElementById("cal").value;
+            let y = document.getElementById("cal2").value;
+            let resPlus = x - y;
+            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
+            // alert(`the anwser is ${resPlus}`)
+            Swal.fire({
+                title: `the anwser is ${resPlus}`,
+                icon: 'success'
+            });
+
+        }
+        function div() {
+            let x = document.getElementById("cal").value;
+            let y = document.getElementById("cal2").value;
+            let resPlus = x / y;
+            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
+            // alert(`the anwser is ${resPlus}`)
+            Swal.fire({
+                title: `the anwser is ${resPlus}`,
+                  icon:'success'
+            });
+
+        }
+        function usd() {
+            let down = document.getElementById("in_down").value;
+            let para = document.getElementById("ud").innerHTML = (`${down}`);
+            
+        }
+        function c() {
+            let cur = document.getElementById("in_cur").value;
+            let sive = document.getElementById("cu").innerHTML = (`${cur}`);
+        }
+
+
+    </script>
+
+</body>
+
+</html
