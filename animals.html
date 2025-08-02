@@ -5,6 +5,7 @@
     <link rel="icon"
         href="https://img.freepik.com/premium-photo/german-shepherd-dog-white-background-logo-generative-ai_918839-11701.jpg" />
     <style>
+        /* css starts here */
         div,
         h1 {
             text-align: center;
@@ -30,21 +31,25 @@
             color: white;
             animation-duration: 4s;
             animation-name: boxty;
+            transition: all 0.5s;
+            cursor: pointer;
         }
 
         @keyframes boxty {
             from {
                 background-color: blue;
                 transform: rotate(0deg);
+                color: black;
+                padding: 0%;
+                
             }
 
             to {
-                background-color: red;
+                background: radial-gradient(blue, black);
                 transform: rotate(180deg);
-            }
-            to{
-                background-color: black;
-                transform: rotate(180deg); 
+                color: white;
+                padding: 50px;
+
             }
         }
 
@@ -105,54 +110,78 @@
         span {
             font-size: 20px;
         }
+        .ball{
+            border-radius: 50%;
+            /* background: radial-gradient(red.white); */
+            background-color: black;
+        }
+        /* css ends here */
     </style>
+    <!-- javascript starts here -->
     <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
     <script>
-        let name = prompt("what is your name")
-        alert(`welcome ${name}`)
+        let name = prompt("What is your name")
+        let nm = ""
+        if (name == null || name == "") {
+            nm = prompt("Enter a real name")
+            if (nm == null ||nm == "") {
+                alert(`Your name will be shown as null or _____`)
+            }
+            
+        }
+
+        else {
+            alert(`Welcome ${name}`)
+        }
+
         let feel = prompt("how are you feeling")
+        if (feel == null || feel == "") {
+            alert("You could have wrote something but whatever")
+        }
         if (feel == "happy") {
-            alert("oh, nice would you like to learn about animals?")
+            alert("Oh, nice would you like to learn about animals?")
         }
         if (feel == "sad") {
-            alert("i'm sorry to hear that, would you like to learn about animals?")
+            alert("I'm sorry to hear that, would you like to learn about animals?")
         }
         if (feel == "unhappy") {
-            alert("i'm sorry to hear that, would you like to learn about animals?")
+            alert("I'm sorry to hear that, would you like to learn about animals?")
         }
         if (feel == "bad") {
-            alert("i'm sorry to hear that, would you like to learn about animals?")
+            alert("I'm sorry to hear that, would you like to learn about animals?")
         }
         if (feel == "sick") {
-            alert("take some medicine, and also would you like to learn about animals?")
+            alert("Take some medicine, and also would you like to learn about animals?")
         }
         else if (feel == "good") {
-            alert("oh, nice would you like to learn about animals?")
+            alert("Oh, nice would you like to learn about animals?")
         }
         else if (feel == "confident") {
-            alert("oh, nice would you like to learn about animals?")
+            alert("Oh, nice would you like to learn about animals?")
         }
         else if (feel == "excited") {
-            alert("oh, nice would you like to learn about animals?")
+            alert("Oh, nice would you like to learn about animals?")
         }
         else if (feel == "bored") {
-            alert("oh, you're bored? i'm also bored would you like to learn about animals?")
+            alert("Oh, you're bored? i'm also bored would you like to learn about animals?")
         }
         else if (feel == "tired") {
-            alert("oh, before you go to sleep, would you like to learn about animals?")
+            alert("Oh, before you go to sleep, would you like to learn about animals?")
         }
         else if (feel == "sleepy") {
-            alert("oh, before you go to sleep, would you like to learn about animals?")
+            alert("Oh, before you go to sleep, would you like to learn about animals?")
         }
         else if (feel == "awkward") {
-            alert("wow.......WOW.....would you like to learn about animals?")
+            alert("Wow.......WOW.....would you like to learn about animals?")
         }
         else {
-            alert("oh, I hear you, would you like to learn about animals?")
+            alert("I hear you, would you like to learn about animals?")
         }
         function d() {
-            alert(` so... ${name} want to have a quiz, right? `)
+            alert(` So... ${name} want to have a quiz, right? `)
         }
+
+        // javascript ends here
     </script>
 
 </head>
@@ -168,7 +197,9 @@
         <a href="#archerfish"><button>Archerfish</button></a>
         <a href="#beetle"><button>Bombardier Beetle</button></a>
         <a href="#jaguar"><button>jaguar</button></a>
+        <a href="#titanoboa"><button>Titanoboa</button></a>
         <a href="#e"><button>quiz's</button></a>
+        <a href="http://127.0.0.1:5500/fun%20and%20games.html"><button>fun and game</button></a>
 
 
     </nav>
@@ -240,7 +271,7 @@
     </div>
     <br><br><br><br><br><br><br>
     <div>
-        <img src="https://thumbs.dreamstime.com/b/archerfish-fish-rests-farm-ai-generated-photo-k-portrait-front-view-hd-image-background-322967546.jpg"
+        <img src="https://www.aquariumofpacific.org/images/made_new/images-uploads-Archerfish_by_Robin_Riggs_600_q85.jpg"
             width="150" id="archerfish">
         <h3>Archerfish</h3>
         <p>
@@ -281,7 +312,22 @@
         </p>
         <a href="#" class="d">
             <h1><i class="fa-solid fa-house"></i></h1>
+            
         </a>
+        </div>
+        <br><br><br><br><br><br><br><br>
+        <div>
+            <img src="https://img.freepik.com/premium-photo/titanoboa-is-angry-background-wallpaper-ai-generated_1087980-1053.jpg?w=2000"
+                width="35%" id="titanoboa">
+            <h3 id="titanoboa">Titanoboa</h3>
+            <p>Titanoboa, the largest snake ever discovered, lived about 60 to 58 million years ago during the <br>Paleocene epoch. It could grow up to<br> 12.8 meters (42 feet) long and weigh between 730 and 1,135 kilograms (1,600 to 2,500 pounds). <br>This prehistoric snake thrived in ancient tropical rainforests, likely preying on large animals like fish and crocodiles.
+            </p>
+            <a href="#" class="d">
+                <h1><i class="fa-solid fa-house"></i></h1>
+            </a>
+    
+        </div>
+        <br><br><br><br><br>
 
     </div>
     <br><br><br><br><br>
@@ -290,13 +336,13 @@
         <a href="http://127.0.0.1:5500/quiz%201%20ani.html" onclick="d()"><span><button>quiz 1</button></span></a> <a
             href="#" onclick="d()"><span><button>quiz 2</button></span></a> <a href="#" onclick="d()"><span><button>quiz
                     3</button></span><br><a href="#">
-
                 <h1><i class="fa-solid fa-house"></i></h1>
             </a>
 
             </span></a>
     </div>
-    <br><br><br>"
+    <br><br><br><br><br>
+   
     <footer>
         <p class="w"><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
     </footer>
