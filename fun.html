@@ -9,7 +9,7 @@
        
         div {
             padding: 10px;
-            
+           
         }
 
         .d,
@@ -30,7 +30,7 @@
         }
 
         button {
-            background-color: red;
+            background-color:rgb(190, 67, 67);
             color: white;
         }
 
@@ -117,7 +117,7 @@
         .f{
             border-radius: 10px; 
         }
-
+       
         .d,
         .cursive,
         .e,
@@ -128,16 +128,31 @@
         hr{
             height: 10px;
         }
-        nav{
+        /* nav{
             background-color: red;
            
-        }
+        } */
         i{
             color: black;
         }
         i:hover{
             color: white;
         }
+       .rev{
+         border-color: green;
+            border-style: dashed;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+       }
+       .name{
+        border-color: rgb(5, 7, 5);
+            border-style: dotted;
+            border-width: 10px;
+            width: 180px;
+            text-align: center;
+
+       }
     </style>
     <!-- javascript starts here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -146,44 +161,44 @@
 </head>
 
 <body>
-    <nav><a href="https://ayaansh0404.github.io/facts/animals.html" class="d">
+    <nav class="bg-primary"><a href="https://ayaansh0404.github.io/facts/animals.html" class="d">
+        
             <h1><i class="fa-solid fa-house"></i></h1>
         </a></nav>
-    <div class="d">
-        <h1>Word Reverser</h1>
-        <p>don't waste time geting a piece of paper and finding the reversed word, <br>when you can just do it here in 2
-            seconds. </p>
-        <form action="">
-            <input type="text" id="wordinput" placeholder="Enter a word">
+        <div class="container my-5">
+<div class="row g-4">
+      <div class="col-md-4 rev">
 
-            <button onclick="reverseWord()" type="reset" value="Reset">Reverse</button>
-        </form>
-        <p id="reversedWord"></p>
+          <h3>Word Reverser</h3>
+          <input type="text" id="wordinput" class="form-control mb-2" placeholder="Enter a word">
+          <button class="btn btn-danger" onclick="reverseWord()">Reverse</button>
+          <p id="reversedWord" class="mt-2"></p>
+       
+      </div>
 
-    </div>
-    <hr>
-    <div class="e">
-        <h1> I will guess your name</h1>
-        <p>Enter your name here</p>
-        <form action="">
-            <input type="text" placeholder="enter here" id="name">
-            <button type="reset" value="Reset" onclick="b()">click me</button>
-            <p id="p"></p>
-        </form>
-    </div>
-    <hr>
-    <div class="f">
-        <h1>Calculator</h1>
-        <p>enter 2 numbers and then click + or - or x or %.</p>
-        <input type="number" name="" id="cal" placeholder="enter number 1, here ">
-        <input type="number" name="" id="cal2" placeholder="enter number 2 here">
-        <br>
-        <button id="+" onclick="plus()">+</button>
-        <button id="%" onclick="div()">%</button>
-        <button id="x" onclick="mul()">x</button>
-        <button id="-" onclick="min()">-</button>
-        <p id="ans"></p>
+      <div class="col-md-4 name">
 
+          <h3>Name Guesser</h3>
+          <input type="text" id="name" class="form-control mb-2" placeholder="Enter your name">
+          <button onclick="b()">Guess</button>
+          <p id="p" class="mt-2"></p>
+
+      </div>
+
+      <div class="col-md-4">
+
+          <h3>Calculator</h3>
+          <input type="number" id="cal" class="form-control mb-2" placeholder="Number 1">
+          <input type="number" id="cal2" class="form-control mb-2" placeholder="Number 2">
+          <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-danger" onclick="plus()">+</button>
+            <button class="btn btn-danger" onclick="min()">-</button>
+            <button class="btn btn-danger" onclick="mul()">×</button>
+            <button class="btn btn-danger" onclick="div()">÷</button>
+          </div>
+          <p id="ans" class="mt-2"></p>
+        </div>
+      </div>
     </div>
     <hr>
     <div class="upside_down">
@@ -199,115 +214,56 @@
         <button onclick="c()">click me to make it cursive</button><br>
         <p id="cu" text-align="left"></p>
     </div>
+    </div>
     <br>
     <footer>
         <p><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
     </footer>
     <script>
 
-        function b() {
-            let name = document.getElementById('name').value
-            if (name == "") {
-                document.getElementById("p").innerHTML = `your name is _____  (don't ask how I know🤣😜)`
-                Swal.fire({
-                title: `your name is _____ (don't ask how I know🤣😜)`
-                });
-            }
-            else {
-                document.getElementById("p").innerHTML = `your name is ${name} (don't ask how I know🤣😜)`
-                 Swal.fire({
-                title: `your name is ${name} (don't ask how I know🤣😜)`,
-            });
-            }
-        }
-        function reverseWord() {
-            let wordInput = document.getElementById('wordinput').value;
-            let word = document.getElementById('wordinput').value;
-            let reversedWordElement = document.getElementById('reversedWord');
+        
+      function b() {
+      let name = document.getElementById('name').value;
+      let message = name ? `Your name is ${name} (don't ask how I know 🤣)` : "Your name is _____ (don't ask how I know 🤣)";
+      document.getElementById("p").textContent = message;
+      Swal.fire({ title: message });
+    }
 
-            if (wordInput == "" || word == "") {
-                reversedWordElement.innerHTML = `the reversed word of ____ is _____`;
-                 Swal.fire({
-                title: `the reversed word of ____ is _____`,
-                icon: 'success'
-            });
+    function reverseWord() {
+      let word = document.getElementById('wordinput').value;
+      let reversed = word.split('').reverse().join('');
+      let message = word ? `The reversed word of ${word} is ${reversed}` : `The reversed word of ____ is _____`;
+      document.getElementById("reversedWord").textContent = message;
+      Swal.fire({ title: message, icon: 'success' });
+    }
 
-            } else {
-                let reversedWord = wordInput.split('').reverse().join('');
+    function plus() {
+      calc((x, y) => x + y);
+    }
 
+    function min() {
+      calc((x, y) => x - y);
+    }
 
+    function mul() {
+      calc((x, y) => x * y);
+    }
 
-                reversedWordElement.innerHTML = `the reversed word of ${word} is ${reversedWord}`;
-                Swal.fire({
-                title: `the reversed word of ${word} is ${reversedWord}`,
-                icon: 'success'
-            });
-                
-            }
-        }
-        function plus() {
-            let x = document.getElementById("cal").value;
-            let y = document.getElementById("cal2").value;
-            x = parseFloat(x)
-            y = parseFloat(y)
-            let resPlus = x + y;
+    function div() {
+      calc((x, y) => x / y);
+    }
 
-            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
-            // alert(`the anwser is ${resPlus}`)
-            Swal.fire({
-                title: `the anwser is ${resPlus}`,
-                icon: 'success'
-                 
-            });
-
-        }
-        function mul() {
-            let x = document.getElementById("cal").value;
-            let y = document.getElementById("cal2").value;
-            let resPlus = x * y;
-           
-            Swal.fire({
-                title: `the anwser is ${resPlus}`,
-                icon: 'success'
-            });
-
-
-
-        }
-        function min() {
-            let x = document.getElementById("cal").value;
-            let y = document.getElementById("cal2").value;
-            let resPlus = x - y;
-            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
-            // alert(`the anwser is ${resPlus}`)
-            Swal.fire({
-                title: `the anwser is ${resPlus}`,
-                icon: 'success'
-            });
-
-        }
-        function div() {
-            let x = document.getElementById("cal").value;
-            let y = document.getElementById("cal2").value;
-            let resPlus = x / y;
-            document.getElementById("ans").innerHTML = `the anwser is ${resPlus}`
-            // alert(`the anwser is ${resPlus}`)
-            Swal.fire({
-                title: `the anwser is ${resPlus}`,
-                  icon:'success'
-            });
-
-        }
-        function usd() {
-            let down = document.getElementById("in_down").value;
-            let para = document.getElementById("ud").innerHTML = (`${down}`);
-            
-        }
-        function c() {
-            let cur = document.getElementById("in_cur").value;
-            let sive = document.getElementById("cu").innerHTML = (`${cur}`);
-        }
-
+    function calc(operation) {
+      let x = parseFloat(document.getElementById("cal").value);
+      let y = parseFloat(document.getElementById("cal2").value);
+      if (isNaN(x) || isNaN(y)) {
+        Swal.fire({ title: "Please enter both numbers", icon: "warning" });
+        return;
+      }
+      let result = operation(x, y);
+      document.getElementById("ans").textContent = `The answer is ${result}`;
+      Swal.fire({ title: `The answer is ${result}`, icon: "success" });
+    }
 
     </script>
 
