@@ -9,15 +9,11 @@
        
         div {
             padding: 10px;
-           
+            
         }
 
         .d,
         .upside_down {
-            border-color: green;
-            border-style: dashed;
-            border-width: 10px;
-            width: 180px;
             text-align: center;
 
         }
@@ -30,7 +26,7 @@
         }
 
         button {
-            background-color:rgb(190, 67, 67);
+            background-color: red;
             color: white;
         }
 
@@ -96,11 +92,8 @@
         }
 
         .cursive {
-            border-color: rgb(5, 7, 5);
-            border-style: dotted;
             border-width: 10px;
             width: 180px;
-            text-align: center;
         }
 
         #cu {
@@ -117,7 +110,7 @@
         .f{
             border-radius: 10px; 
         }
-       
+
         .d,
         .cursive,
         .e,
@@ -128,31 +121,16 @@
         hr{
             height: 10px;
         }
-        /* nav{
-            background-color: red;
-           
-        } */
+        nav{
+           height: 100px;
+        }
         i{
             color: black;
+            margin-top: 30px;
         }
         i:hover{
             color: white;
         }
-       .rev{
-         border-color: green;
-            border-style: dashed;
-            border-width: 10px;
-            width: 180px;
-            text-align: center;
-       }
-       .name{
-        border-color: rgb(5, 7, 5);
-            border-style: dotted;
-            border-width: 10px;
-            width: 180px;
-            text-align: center;
-
-       }
     </style>
     <!-- javascript starts here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -161,59 +139,59 @@
 </head>
 
 <body>
-    <nav class="bg-primary"><a href="https://ayaansh0404.github.io/facts/animals.html" class="d">
-        
+    <nav class="bg-primary"><a href="http://127.0.0.1:5500/animals.html" class="d">
             <h1><i class="fa-solid fa-house"></i></h1>
         </a></nav>
-        <div class="container my-5">
-<div class="row g-4">
-      <div class="col-md-4 rev">
+        <br>
+        <div class="row text-center">
+    <div class="col-4">
+        <h1>Word Reverser</h1>
+        <p>don't waste time geting a piece of paper and finding the reversed word, <br>when you can just do it here in 2
+            seconds. </p>
+        <form action="">
+            <input type="text" class="form-control mb-2" id="wordinput" placeholder="Enter a word">
 
-          <h3>Word Reverser</h3>
-          <p>don't waste time geting a piece of paper and finding the reversed word, when you can just do it here in 2 seconds.</p>
-          <input type="text" id="wordinput" class="form-control mb-2" placeholder="Enter a word">
-          <button class="btn btn-danger" onclick="reverseWord()">Reverse</button>
-          <p id="reversedWord" class="mt-2"></p>
-       
-      </div>
+            <button onclick="reverseWord()" type="reset" value="Reset">Reverse</button>
+        </form>
+        <p id="reversedWord"></p>
 
-      <div class="col-md-4 name">
+    </div>
+   
+    <div class="col-4">
+        <h1> I will guess your name</h1>
+        <p>Enter your name here</p>
+        <form action="">
+            <input type="text" class="form-control mb-2" placeholder="enter here" id="name">
+            <button type="reset" value="Reset" onclick="b()">click me</button>
+            <p id="p"></p>
+        </form>
+    </div>
+  
+    <div class="col-4">
+        <h1>Calculator</h1>
+        <p>enter 2 numbers and then click + or - or x or %.</p>
+        <input type="number" class="form-control mb-2" name="" id="cal" placeholder="enter number 1, here ">
+        <input type="number" class="form-control mb-2" name="" id="cal2" placeholder="enter number 2 here">
+        <br>
+        <button id="+" onclick="plus()">+</button>
+        <button id="%" onclick="div()">%</button>
+        <button id="x" onclick="mul()">x</button>
+        <button id="-" onclick="min()">-</button>
+        <p id="ans"></p>
 
-          <h3>Name Guesser</h3>
-          <p>Enter your name here</p>
-          <input type="text" id="name" class="form-control mb-2" placeholder="enter here">
-          <button onclick="b()">Guess</button>
-          <p id="p" class="mt-2"></p>
-
-      </div>
-
-      <div class="col-md-4">
-
-          <h3>Calculator</h3>
-          <p>enter 2 numbers and then click + or - or x or %.</p>
-          <input type="number" id="cal" class="form-control mb-2" placeholder="Number 1">
-          <input type="number" id="cal2" class="form-control mb-2" placeholder="Number 2">
-          <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-danger" onclick="plus()">+</button>
-            <button class="btn btn-danger" onclick="min()">-</button>
-            <button class="btn btn-danger" onclick="mul()">×</button>
-            <button class="btn btn-danger" onclick="div()">÷</button>
-          </div>
-          <p id="ans" class="mt-2"></p>
-        </div>
-      </div>
+    </div>
     </div>
     <hr>
-    <div class="upside_down">
+    <div class="row text-center">
+    <div class="col-4 upside_down">
         <h1>Upside down generater</h1>
-        <input type="text" placeholder="enter word here" id="in_down"><br>
+        <input type="text" class="form-control mb-2" placeholder="enter word here" id="in_down"><br>
         <button onclick="usd()">click me to make it upside down</button><br>
         <p id="ud" text-align="left"></p>
     </div>
-    <hr>
-    <div class="cursive">
+    <div class="col-4 cursive">
         <h1>Cursive generater</h1>
-        <input type="text" placeholder="enter word here" id="in_cur"><br>
+        <input type="text" class="form-control md-2" placeholder="enter word here" id="in_cur"><br>
         <button onclick="c()">click me to make it cursive</button><br>
         <p id="cu" text-align="left"></p>
     </div>
@@ -224,23 +202,48 @@
     </footer>
     <script>
 
-        
-      function b() {
-      let name = document.getElementById('name').value;
-      let message = name ? `Your name is ${name} (don't ask how I know 🤣)` : "Your name is _____ (don't ask how I know 🤣)";
-      document.getElementById("p").textContent = message;
-      Swal.fire({ title: message });
-    }
+        function b() {
+            let name = document.getElementById('name').value
+            if (name == "") {
+                document.getElementById("p").innerHTML = `your name is _____  (don't ask how I know🤣😜)`
+                Swal.fire({
+                title: `your name is _____ (don't ask how I know🤣😜)`
+                });
+            }
+            else {
+                document.getElementById("p").innerHTML = `your name is ${name} (don't ask how I know🤣😜)`
+                 Swal.fire({
+                title: `your name is ${name} (don't ask how I know🤣😜)`,
+            });
+            }
+        }
+        function reverseWord() {
+            let wordInput = document.getElementById('wordinput').value;
+            let word = document.getElementById('wordinput').value;
+            let reversedWordElement = document.getElementById('reversedWord');
 
-    function reverseWord() {
-      let word = document.getElementById('wordinput').value;
-      let reversed = word.split('').reverse().join('');
-      let message = word ? `The reversed word of ${word} is ${reversed}` : `The reversed word of ____ is _____`;
-      document.getElementById("reversedWord").textContent = message;
-      Swal.fire({ title: message, icon: 'success' });
-    }
+            if (wordInput == "" || word == "") {
+                reversedWordElement.innerHTML = `the reversed word of ____ is _____`;
+                 Swal.fire({
+                title: `the reversed word of ____ is _____`,
+                icon: 'success'
+            });
 
-    function plus() {
+            } else {
+                let reversedWord = wordInput.split('').reverse().join('');
+
+
+
+                reversedWordElement.innerHTML = `the reversed word of ${word} is ${reversedWord}`;
+                Swal.fire({
+                title: `the reversed word of ${word} is ${reversedWord}`,
+                icon: 'success'
+            });
+                
+            }
+        }
+     
+           function plus() {
       calc((x, y) => x + y);
     }
 
@@ -267,6 +270,19 @@
       document.getElementById("ans").textContent = `The answer is ${result}`;
       Swal.fire({ title: `The answer is ${result}`, icon: "success" });
     }
+    
+
+          
+        function usd() {
+            let down = document.getElementById("in_down").value;
+            let para = document.getElementById("ud").innerHTML = (`${down}`);
+            
+        }
+        function c() {
+            let cur = document.getElementById("in_cur").value;
+            let sive = document.getElementById("cu").innerHTML = (`${cur}`);
+        }
+
 
     </script>
 
