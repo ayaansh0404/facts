@@ -1,26 +1,45 @@
 <html>
     <head>
+        <link rel="icon"
+        href="https://cdn-icons-png.flaticon.com/512/2573/2573990.png"/>
+        <title>Registration form</title>
         <style>
             body{
                 text-align: center;
+                font-family: sans-serif;
             }
             hr{
                 width: 500px;
             }
+            button{
+                margin-left: 10px;
+            }
+            div{
+                margin-top: 300px;
+            }
         </style>
+        <script>
+
+        </script>
     </head>
     <body>
+        <div>
         <h1>Registration form</h1>
         <hr>
         <form action="https://sheetdb.io/api/v1/yfcfoej6auqz5" method="post">
-        <label for="">first name:</label>
+        <label for="">First Name:</label>
         <input type="text" name="data[First_Name]" required><br><br>
-        <label for="">last name:</label>
+        <label for="">Last Name:</label>
         <input name="data[Last_Name]" required><br><br>
-        <label for="">phone number:</label>
+        <label for="">Phone Number:</label>
         <input type="number" name="data[Phone_Number]" required><br>
-        <!-- <br><p>are you coming?</p><button>yes</button><button>no</button> -->
-         <br><input type="submit" value="Submit">
+        <br><label>are you coming?</label>
+        <input value="yes"  type="radio" name="data[response]" required>
+        <label for="">Yes</label>
+        <input value="no"  type="radio" name="data[response]" required>
+        <label for="">No</label>
+        <br><br><input type="submit" value="Submit">
         </form>
+        </div>
     </body>
 </html>
