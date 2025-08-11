@@ -7,36 +7,45 @@
             body{
                 text-align: center;
                 font-family: sans-serif;
+                background:linear-gradient(rgb(33, 185, 236),white);
+                font-size: 1.2em; /* Increase overall font size */
             }
             hr{
-                width: 500px;
+                width: 600px; /* Increase the width of the horizontal rule */
             }
             button{
                 margin-left: 10px;
+                padding: 10px 20px; 
+                font-size: 1.1em;
             }
             div{
-                margin-top: 300px;
+                margin-top: 200px;
             }
+            label {
+                font-size: 1.2em;}
+            input[type="text"], 
+            input[type="number"] {
+                width: 300px; 
+                height: 40px;
+                padding: 5px 10px;
+                font-size: 1.1em; 
+            }
+            input[type="submit"] {
+                padding: 10px 20px; 
+                font-size: 1.1em; 
+            }
+            
         </style>
         <script>
-            function submitForm(event){ // Pass the event object to the function
-                event.preventDefault(); // Prevent the default form submission
+            function submitForm(event){ 
+                event.preventDefault(); 
 
-                // Display your message
+            
                 let para = document.getElementById("mess");
                 para.innerHTML = "Thank you for your response😊";
-
-                // You can add a delay before actually submitting the form
-                // or handle the submission using fetch/AJAX here if needed.
-                // For example:
                 setTimeout(() => {
                     document.querySelector("form").submit();
-                }, 5000); // Submits after 2 seconds
-
-                // If you want to submit the form immediately after displaying the message:
-                
-                // document.querySelector("form").submit();
-                
+                }, 5000); 
             }
         </script>
     </head>
@@ -48,7 +57,7 @@
         <label for="">First Name:</label>
         <input type="text" name="data[First_Name]" required><br><br>
         <label for="">Last Name:</label>
-        <input name="data[Last_Name]" required><br><br>
+        <input type="text" name="data[Last_Name]" required><br><br> <!-- Changed input to type="text" -->
         <label for="">Phone Number:</label>
         <input type="number" name="data[Phone_Number]" required><br>
         <br><label>are you coming?</label>
