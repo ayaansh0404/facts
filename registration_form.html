@@ -19,14 +19,32 @@
             }
         </style>
         <script>
+            function submitForm(event){ // Pass the event object to the function
+                event.preventDefault(); // Prevent the default form submission
 
+                // Display your message
+                let para = document.getElementById("mess");
+                para.innerHTML = "Thank you for your response😊";
+
+                // You can add a delay before actually submitting the form
+                // or handle the submission using fetch/AJAX here if needed.
+                // For example:
+                setTimeout(() => {
+                    document.querySelector("form").submit();
+                }, 5000); // Submits after 2 seconds
+
+                // If you want to submit the form immediately after displaying the message:
+                
+                // document.querySelector("form").submit();
+                
+            }
         </script>
     </head>
     <body>
         <div>
         <h1>Registration form</h1>
         <hr>
-        <form action="https://sheetdb.io/api/v1/yfcfoej6auqz5" method="post">
+        <form action="https://sheetdb.io/api/v1/yfcfoej6auqz5" method="post" onsubmit="submitForm(event)">
         <label for="">First Name:</label>
         <input type="text" name="data[First_Name]" required><br><br>
         <label for="">Last Name:</label>
@@ -39,6 +57,7 @@
         <input value="no"  type="radio" name="data[response]" required>
         <label for="">No</label>
         <br><br><input type="submit" value="Submit">
+        <p id="mess"></p>
         </form>
         </div>
     </body>
