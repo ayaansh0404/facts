@@ -8,10 +8,10 @@
                 text-align: center;
                 font-family: sans-serif;
                 background:linear-gradient(rgb(33, 185, 236),white);
-                font-size: 1.2em; /* Increase overall font size */
+                font-size: 1.2em; 
             }
             hr{
-                width: 600px; /* Increase the width of the horizontal rule */
+                width: 600px; 
             }
             button{
                 margin-left: 10px;
@@ -41,8 +41,8 @@
                 event.preventDefault(); 
 
             
-                let para = document.getElementById("mess");
-                para.innerHTML = "Thank you for your response😊";
+                let para = document.getElementById("mess").innerHTML = "Thank you for your response😊";
+                // para.innerHTML = "Thank you for your response😊";
                 setTimeout(() => {
                     document.querySelector("form").submit();
                 }, 5000); 
