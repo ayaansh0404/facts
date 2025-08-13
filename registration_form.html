@@ -56,6 +56,34 @@
                 }, 5000); 
             }
         </script>
+        <script>
+    function isValidPhoneNumber(number) {
+        // Remove any spaces or dashes
+        const cleaned = number.replace(/\D/g, "");
+        return cleaned.length >= 7;
+    }
+
+    function submitForm(event) {
+        event.preventDefault(); // Stop form from submitting immediately
+
+        const phone = document.querySelector('input[name="data[Phone_Number]"]').value;
+        const message = document.getElementById("mess");
+
+        if (!isValidPhoneNumber(phone)) {
+            message.textContent = "❌ Please enter a valid phone number with at least 7 digits.";
+            message.style.color = "white";
+            return;
+        }
+
+        // Valid phone number
+        message.textContent = "Thank you for your response😊";
+        message.style.color = "white";
+
+        setTimeout(() => {
+            document.querySelector("form").submit();
+        }, 5000);
+    }
+</script>
     </head>
     <body>
         <div>
