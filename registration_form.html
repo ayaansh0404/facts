@@ -56,11 +56,11 @@
                 }, 5000); 
             }
         </script>
-        <script>
+     <script>
     function isValidPhoneNumber(number) {
-        // Remove any spaces or dashes
+        // Remove spaces, dashes, or any non-digit characters
         const cleaned = number.replace(/\D/g, "");
-        return cleaned.length >= 10;
+        return cleaned.length === 10;
     }
 
     function submitForm(event) {
@@ -70,7 +70,7 @@
         const message = document.getElementById("mess");
 
         if (!isValidPhoneNumber(phone)) {
-            message.textContent = "❌ Please enter a valid 10 digit phone number.";
+            message.textContent = "❌ Phone number must be exactly 10 digits.";
             message.style.color = "white";
             return;
         }
@@ -84,6 +84,7 @@
         }, 5000);
     }
 </script>
+
     </head>
     <body>
         <div>
