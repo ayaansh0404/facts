@@ -60,7 +60,7 @@
     function isValidPhoneNumber(number) {
         // Remove any spaces or dashes
         const cleaned = number.replace(/\D/g, "");
-        return cleaned.length >= 7;
+        return cleaned.length >= 10;
     }
 
     function submitForm(event) {
@@ -70,7 +70,7 @@
         const message = document.getElementById("mess");
 
         if (!isValidPhoneNumber(phone)) {
-            message.textContent = "❌ Please enter a valid phone number with at least 7 digits.";
+            message.textContent = "❌ Please enter a valid 10 digit phone number.";
             message.style.color = "white";
             return;
         }
