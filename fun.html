@@ -142,6 +142,26 @@
             font-size: 18px;
             cursor: pointer;
         }
+        body {
+      
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    canvas {
+      /* background: skyblue; */
+    }
+    #startBtn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background: green;
+      color: white;
+    }
     </style>
     <!-- javascript starts here -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -223,6 +243,14 @@
     </div>
     </div>
     <br>
+    <hr>
+    <div class="row">
+        <div class="col-4">
+            <h1>flappy bird</h1>
+            <canvas id="gameCanvas" width="300" height="400"></canvas>
+  <button id="startBtn">Start Game</button>
+        </div>
+    </div>
     <footer>
         <p><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
     </footer>
@@ -350,6 +378,125 @@
         rock_button.addEventListener('click', () => game("Rock"));
         paper_button.addEventListener('click', () => game("Paper"));
         scissors_button.addEventListener('click', () => game("Scissors"));
+        const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const startBtn = document.getElementById("startBtn");
+
+    let birdX, birdY, gravity, lift, velocity;
+    let pipeX, pipeWidth, gap, pipeTop;
+    let score, gameOver, gameStarted;
+
+    let startBirdY = 150;
+    let startDir = 1; // for bouncing on start screen
+
+    function initGame() {
+      birdX = 50;
+      birdY = 150;
+      gravity = 0.5;
+      lift = -6;
+      velocity = 0;
+
+      pipeX = 300;
+      pipeWidth = 40;
+      gap = 100;
+      pipeTop = Math.floor(Math.random() * 150) + 50;
+
+      score = 0;
+      gameOver = false;
+      gameStarted = true;
+
+      startBtn.style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.code === "Space" && gameStarted && !gameOver) {
+        velocity = lift;
+      }
+    });
+
+    startBtn.addEventListener("click", () => {
+      initGame();
+    });
+
+    function drawBird() {
+      ctx.beginPath();
+      ctx.arc(birdX, birdY, 10, 0, Math.PI * 2); // smaller bird
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawPipe() {
+      ctx.fillStyle = "green";
+      ctx.fillRect(pipeX, 0, pipeWidth, pipeTop);
+      ctx.fillRect(pipeX, pipeTop + gap, pipeWidth, canvas.height - (pipeTop + gap));
+    }
+
+    function update() {
+      if (gameStarted && !gameOver) {
+        velocity += gravity;
+        birdY += velocity;
+
+        pipeX -= 2;
+
+        if (pipeX + pipeWidth < 0) {
+          pipeX = canvas.width;
+          pipeTop = Math.floor(Math.random() * 150) + 50;
+          score++;
+        }
+
+        if (
+          birdY > canvas.height || birdY < 0 ||
+          (birdX + 10 > pipeX && birdX - 10 < pipeX + pipeWidth &&
+           (birdY - 10 < pipeTop || birdY + 10 > pipeTop + gap))
+        ) {
+          gameOver = true;
+          gameStarted = false;
+          startBtn.style.display = "inline-block";
+          startBtn.innerText = "Restart Game";
+        }
+      }
+    }
+
+    function drawScore() {
+      ctx.fillStyle = "black";
+      ctx.font = "16px Arial";
+      ctx.fillText("Score: " + score, 10, 20);
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!gameStarted && !gameOver) {
+        // Start screen bird bounce
+        startBirdY += startDir * 0.6;
+        if (startBirdY > 180 || startBirdY < 120) startDir *= -1;
+        ctx.beginPath();
+        ctx.arc(50, startBirdY, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "black";
+        ctx.font = "18px Arial";
+        ctx.fillText("Click Start to Play", 70, 200);
+      } else {
+        drawBird();
+        drawPipe();
+        drawScore();
+      }
+
+      if (gameOver) {
+        ctx.fillStyle = "red";
+        ctx.font = "30px Arial";
+        ctx.fillText("Game Over", 80, 180);
+      }
+
+      update();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
     </script>
 
 </body>
