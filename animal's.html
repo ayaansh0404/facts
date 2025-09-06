@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals</title>
+    <link rel="icon"
+        href="https://img.freepik.com/premium-photo/german-shepherd-dog-white-background-logo-generative-ai_918839-11701.jpg" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgb(253, 255, 232), rgb(255, 255, 126), lightgreen, darkgreen, black);
+            margin: 0;
+        }
+
+        div,
+        h1 {
+            text-align: center;
+        }
+
+        .navbar {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, teal, darkcyan);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 30px;
+            background-color: crimson;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            background-color: yellow;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        div.animal-card {
+            background-color: white;
+            margin: 50px;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        p {
+            font-family: cursive;
+        }
+
+        h2,
+        h3,
+        h1 {
+            color: black;
+            font-family: sans-serif;
+        }
+
+        #e button {
+            border-radius: 30px;
+            padding: 10px 20px;
+            background-color: crimson;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #e button:hover {
+            background-color: yellow;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        footer {
+            background: linear-gradient(red, orange);
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        #e {
+            width: 1330px;
+            padding: 30px;
+            height: 200;
+        }
+       .navbar {
+    padding: 12px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, teal, darkcyan);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    background-color: yellow;
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+.animal-card img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+.animal-card{
+    border: 1px solid;
+  padding: 10px;
+  box-shadow: 2px 5px #888888;
+}
+
+    </style>
+   
+    <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
+    <!-- <script>
+        let name = prompt("What is your name") || "____";
+        alert(`Welcome ${name}`);
+
+        let feel = prompt("How are you feeling?");
+        const feelings = {
+            happy: "Oh, nice! Would you like to learn about animals?",
+            good: "Oh, nice! Would you like to learn about animals?",
+            confident: "Oh, nice! Would you like to learn about animals?",
+            excited: "Oh, nice! Would you like to learn about animals?",
+            bored: "Oh, you're bored? I'm also bored! Would you like to learn about animals?",
+            sad: "I'm sorry to hear that. Would you like to learn about animals?",
+            unhappy: "I'm sorry to hear that. Would you like to learn about animals?",
+            bad: "I'm sorry to hear that. Would you like to learn about animals?",
+            sick: "Take some medicine, and also would you like to learn about animals?",
+            tired: "Oh, before you go to sleep, would you like to learn about animals?",
+            sleepy: "Oh, before you go to sleep, would you like to learn about animals?",
+            awkward: "Wow.......WOW.....would you like to learn about animals?"
+        };
+        alert(feelings[feel] || "I hear you. Would you like to learn about animals?");
+
+        function d() { alert(`So... ${name} wants to have a quiz, right?`); }
+        function goToQuiz(url) { d(); window.location.href = url; }
+    </script> -->
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🐾 Animals</div>
+        <ul class="nav-links">
+            <li><a href="#t-rex">T-Rex</a></li>
+            <li><a href="#golden-eagle">Golden Eagle</a></li>
+            <li><a href="#deers">Deers</a></li>
+            <li><a href="#komodo-dragon">Komodo Dragon</a></li>
+            <li><a href="#archerfish">Archerfish</a></li>
+            <li><a href="#beetle">Beetle</a></li>
+            <li><a href="#jaguar">Jaguar</a></li>
+            <li><a href="#titanoboa">Titanoboa</a></li>
+            <li><a href="#archaeopteryx">Archaeopteryx</a></li>
+            <li><a href="#e">Quiz</a></li>
+            <li><a href="https://ayaansh0404.github.io/facts/fun.html">Fun & Games</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="welcome"><u>Animals 😉</u></h1>
+
+    <!-- Animal Sections -->
+    <div class="animal-card" id="t-rex">
+        <h2>Tyrannosaurus rex</h2>
+        <img src="https://img.freepik.com/premium-photo/trex-jungle-angry-dinosaur-generative-ai-generated-art_853163-161.jpg"
+            width="200px">
+        <p>Tyrannosaurus rex was a tall dinosaur about 18 feet tall, lived in late Cretaceous North America, and was
+            both predator and scavenger.</p>
+    </div>
+
+    <div class="animal-card" id="golden-eagle">
+        <h2>Golden Eagle</h2>
+        <img src="https://png.pngtree.com/png-clipart/20240310/original/pngtree-eagle-face-ai-generated-png-image_14556837.png"
+            width="200px">
+        <p>The Golden eagle is a large bird of prey with a wingspan of 7 ft, flies up to 198 mph, lives 20–30 years in
+            the wild, and up to 68 years in captivity.</p>
+    </div>
+
+    <div class="animal-card" id="deers">
+        <h2>Deers</h2>
+        <img src="https://cdn.pixabay.com/photo/2024/03/05/18/00/ai-generated-8614995_1280.png" width="35%">
+        <p>Deers are calm, gentle mammals. Males grow antlers. Coloration ranges from gray-brown to reddish-brown with
+            cream undersides.</p>
+    </div>
+
+    <div class="animal-card" id="komodo-dragon">
+        <h2>Komodo Dragon</h2>
+        <img src="https://cdn.pixabay.com/photo/2023/10/17/13/57/ai-generated-8321356_1280.jpg" width="35%">
+        <p>The Komodo dragon is a large reptile from Indonesia, grows up to 3 m and 150 kg, and is the largest living
+            lizard species.</p>
+    </div>
+
+    <div class="animal-card">
+        <h2 id="archerfish">Archerfish</h2>
+        <img src="https://www.aquariumofpacific.org/images/made_new/images-uploads-Archerfish_by_Robin_Riggs_600_q85.jpg"
+            width="250">
+        <p>Archerfish shoot water 2–3 meters to knock prey into water. Their eyesight and profile allow highly accurate
+            shots.</p>
+    </div>
+
+    <div class="animal-card" id="beetle">
+        <h2>Bombardier Beetle</h2>
+        <img src="https://img.freepik.com/premium-photo/bombardier-beetle-spraying-hot-chemicals-defensive-mechanism-visualized-scientific_1314184-6481.jpg"
+            width="250">
+        <p>Bombardier beetles shoot a boiling chemical at predators. Over 40 species exist in the US, often blue elytra
+            and reddish heads.</p>
+    </div>
+
+    <div class="animal-card" id="jaguar">
+        <h2>Jaguar</h2>
+        <img src="https://static.vecteezy.com/system/resources/previews/038/008/866/large_2x/ai-generated-jaguar-high-quality-image-free-photo.jpg"
+            width="35%">
+        <p>Jaguars are the largest cats in the Americas, solitary hunters, can jump 20 ft, strong swimmers, numbers
+            declining.</p>
+    </div>
+
+    <div class="animal-card" id="titanoboa">
+        <h2>Titanoboa</h2>
+        <img src="https://img.freepik.com/premium-photo/titanoboa-is-angry-background-wallpaper-ai-generated_1087980-1053.jpg?w=2000"
+            width="35%">
+        <p>Titanoboa, the largest snake ever discovered, lived 58–60 million years ago, up to 12.8 meters long, preying
+            on fish and crocodiles.</p>
+    </div>
+    <div class="animal-card" id="archaeopteryx">
+        <h2>Archaeopteryx</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKT6e-waME84lSdFHJnemsA_Ia9pM9MCVltZcsMALd25tWh-4rr8Q2qUJ3nYHDMrVKKIY&usqp=CAU"
+            width="35%">
+        <p>
+            Archaeopteryx, a Jurassic-era animal about the size of a raven, <br>is one of the most famous fossils in the
+            world. It is widely considered a transitional form between dinosaurs and modern birds due to its combination
+            <br>of bird-like and reptilian features</p>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="e" class="animal-card">
+        <h1>QUIZ TIME!</h1>
+        <a class="text-light" href="https://ayaansh0404.github.io/facts/quiz1ani.html"><button class="text-light">Quiz
+                1</button></a>
+        <button>Quiz 2</button>
+        <button>Quiz 3</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>By Ayaansh Agrawal (started in 2025)</p>
+    </footer>
+
+</body>
+
+</html>
