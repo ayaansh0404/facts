@@ -121,11 +121,17 @@
             padding: 30px;
             height: 200;
         }
-       .navbar {
-    padding: 12px 30px;
+        .navbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    /* white-space: nowrap; */
+}
+    .navbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center;            /* vertically center logo and links */
+    justify-content: space-between; /* logo left, links right */
+    flex-wrap: nowrap;              /* never wrap */
+    padding: 12px 30px;
     background: linear-gradient(90deg, teal, darkcyan);
     color: white;
     position: sticky;
@@ -136,16 +142,18 @@
 .navbar .logo {
     font-size: 22px;
     font-weight: bold;
-    white-space: nowrap;
+    white-space: nowrap;            /* prevent logo from breaking */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 18px;
+    flex-wrap: nowrap;              /* keep all links in one row */
     margin: 0;
     padding: 0;
-    flex-wrap: wrap;
+    overflow-x: auto;               /* allow horizontal scroll if links overflow */
+    -webkit-overflow-scrolling: touch;
 }
 
 .nav-links li a {
@@ -155,6 +163,7 @@
     padding: 6px 12px;
     border-radius: 50px;
     transition: 0.3s;
+    white-space: nowrap;            /* prevent link text from breaking */
 }
 
 .nav-links li a:hover {
@@ -162,12 +171,15 @@
     color: black;
 }
 
+/* Keep links in one row even on mobile */
 @media (max-width: 768px) {
     .nav-links {
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
     }
 }
+
+
 
 
 .animal-card img {
@@ -182,6 +194,9 @@
 }
 p{
   font-family: "Bad Script", cursive;
+}
+html {
+  scroll-padding-top: 100px; /* this matches your navbar height */
 }
 
 
@@ -217,22 +232,24 @@ p{
 <body>
 
     <nav class="navbar">
-        <div class="logo">🐾 Animals</div>
+        <div class="logo">🐾 Animal's </div>
         <ul class="nav-links">
             <li><a href="#t-rex">T-Rex</a></li>
             <li><a href="#golden-eagle">Golden Eagle</a></li>
             <li><a href="#deers">Deers</a></li>
             <li><a href="#komodo-dragon">Komodo Dragon</a></li>
             <li><a href="#archerfish">Archerfish</a></li>
-            <li><a href="#beetle">Beetle</a></li>
+            <li><a href="#beetle">Bombardier Beetle
+</a></li>
             <li><a href="#jaguar">Jaguar</a></li>
             <li><a href="#titanoboa">Titanoboa</a></li>
             <li><a href="#archaeopteryx">Archaeopteryx</a></li>
+            <li><a href="#elasmosaurus">Elasmosaurus</a></li>
             <li><a href="#e">Quiz</a></li>
             <li><a href="https://ayaansh0404.github.io/facts/fun.html">Fun & Games</a></li>
         </ul>
     </nav>
-
+<span class="px-5 m-5">scrollable↗</span>
     <h1 class="welcome"><u>Animals 😉</u></h1>
 
 
@@ -332,6 +349,13 @@ This prehistoric snake thrived in ancient tropical rainforests, <br>likely preyi
             Archaeopteryx, a Jurassic-era animal about the size of a raven, <br>is one of the most famous fossils in the
             world. It is widely considered a transitional form between dinosaurs and modern birds due to its combination
             <br>of bird-like and reptilian features</p>
+    </div>
+    <div class="animal-card" id="elasmosaurus">
+        <h2>Elasmosaurus</h2>
+        <img src="https://thumbs.dreamstime.com/b/elasmosaurus-undersea-was-aquatic-dinosaur-lived-cretaceous-period-d-render-55980393.jpg" width="35%">
+        <p>
+            It ate crabs, mollusks, and fish. It competed for food with another group of marine predators of that time called mosasaurs. <br>Because of Elasmosaurus's long neck, short tail, <br>and turtle-shaped body, it could not swim very fast. However, <br>Elasmosaurus probably used its long neck to take prey by surprise.
+        </p>
     </div>
 
   

@@ -1,553 +1,363 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>fun & games</title>
-    <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals</title>
+    <link rel="icon"
+        href="https://img.freepik.com/premium-photo/german-shepherd-dog-white-background-logo-generative-ai_918839-11701.jpg" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            /* padding-left: 300px;
-    padding-right: 300px; */
-            min-height: 100vh;
+            background: linear-gradient(rgb(253, 255, 232), rgb(255, 255, 126), lightgreen, darkgreen, black);
             margin: 0;
-            background: #f0f0f0;
-            display: block;
         }
 
-        div {
-            padding: 10px;
+        div,
+        h1 {
+            text-align: center;
         }
 
-        nav {
-            width: 100% !important;
-            height: 100px;
+        .navbar {
+            padding: 15px 30px;
             display: flex;
             align-items: center;
-            padding-left: 20px;
-        }
-
-        nav a {
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        nav i {
-            font-size: 2rem;
-            color: black;
-            transition: color 0.3s;
-
-        }
-
-        nav i:hover {
+            justify-content: space-between;
+            background: linear-gradient(90deg, teal, darkcyan);
             color: white;
-        }
-
-        nav p {
-            align-items: start;
-        }
-
-        button,
-        input {
-            box-shadow: 0 0 2px black;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            border: none;
-        }
-
-        button {
-            background-color: red;
-            color: white;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background-color: aqua;
-            color: black;
-            animation-name: rotateBtn;
-            animation-duration: 0.5s;
-        }
-
-        @keyframes rotateBtn {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(180deg);
-            }
-        }
-
-        input {
-            height: 40px;
-            width: 100%;
-            padding: 5px 10px;
-        }
-
-        .row {
-            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px !important;
-            margin-bottom: 20px;
-            margin-left: 300px;
-            margin-right: 300px;
         }
 
-        .col-4 {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-            flex: 1 1 250px;
-            max-width: 300px;
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
         }
 
-        .e,
-        .f,
-        .cursive,
-        .d,
-        .upside_down {
-            width: 100%;
-            text-align: center;
-            margin: 10px auto;
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
         }
 
-        .e {
-            border: 10px dotted rgb(5, 7, 5);
-        }
-
-        .f {
-            border: 10px double red;
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .cursive {
-            border: 10px solid transparent;
-        }
-
-        #ud {
-            transform: rotate(180deg);
-            font-size: xx-large;
-        }
-
-        #cu {
-            font-family: "Brush Script MT", cursive;
-            font-size: xx-large;
-        }
-
-        #choices button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        canvas {
-            background: #87ceeb;
-            border: 2px solid #000;
-            border-radius: 10px;
-            width: 200px;
-        }
-
-        #startBtn {
-            margin-top: 10px;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            background: green;
+        .nav-links a {
+            text-decoration: none;
             color: white;
+            padding: 10px 16px;
+            border-radius: 30px;
+            background-color: crimson;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            background-color: yellow;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        div.animal-card {
+            background-color: white;
+            margin: 50px;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        p {
+            font-family: cursive;
+        }
+
+        h2,
+        h3,
+        h1 {
+            color: black;
+            font-family: sans-serif;
+        }
+
+        #e button {
+            border-radius: 30px;
+            padding: 10px 20px;
+            background-color: crimson;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #e button:hover {
+            background-color: yellow;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         footer {
-            background: linear-gradient(to right, red, orange);
+            background: linear-gradient(red, orange);
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             color: white;
-            margin-top: 30px;
-            width: 100%;
+            font-weight: bold;
         }
 
-        hr {
-            height: 10px;
-            border: none;
-            background-color: #ccc;
+        #e {
+            width: 1330px;
+            padding: 30px;
+            height: 200;
         }
+       .navbar {
+    padding: 12px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, teal, darkcyan);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        .swal2-popup {
-            font-size: 1.3rem !important;
-            padding: 30px !important;
-            max-width: 90vw !important;
-            width: auto !important;
-        }
+.navbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+}
 
-        .swal2-title {
-            font-size: 1.5rem !important;
-        }
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
 
-        .swal2-content {
-            font-size: 1.2rem !important;
-        }
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    transition: 0.3s;
+}
 
-        .swal2-popup {
-            font-size: 1.3rem !important;
-            padding: 30px !important;
-            max-width: 90vw !important;
-            width: auto !important;
-        }
+.nav-links li a:hover {
+    background-color: yellow;
+    color: black;
+}
 
-        .swal2-container {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+.animal-card img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+.animal-card{
+    border: 1px solid;
+  padding: 10px;
+  box-shadow: 2px 5px #888888;
+}
+p{
+  font-family: "Bad Script", cursive;
+}
+html {
+  scroll-padding-top: 100px; /* this matches your navbar height */
+}
+
+
     </style>
+   
+    <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
+    <script>
+        let name = prompt("What is your name") || "____";
+        alert(`Welcome ${name}`);
+
+        let feel = prompt("How are you feeling?");
+        const feelings = {
+            happy: "Oh, nice! Would you like to learn about animals?",
+            good: "Oh, nice! Would you like to learn about animals?",
+            confident: "Oh, nice! Would you like to learn about animals?",
+            excited: "Oh, nice! Would you like to learn about animals?",
+            bored: "Oh, you're bored? I'm also bored! Would you like to learn about animals?",
+            sad: "I'm sorry to hear that. Would you like to learn about animals?",
+            unhappy: "I'm sorry to hear that. Would you like to learn about animals?",
+            bad: "I'm sorry to hear that. Would you like to learn about animals?",
+            sick: "Take some medicine, and also would you like to learn about animals?",
+            tired: "Oh, before you go to sleep, would you like to learn about animals?",
+            sleepy: "Oh, before you go to sleep, would you like to learn about animals?",
+            awkward: "Wow.......WOW.....would you like to learn about animals?"
+        };
+        alert(feelings[feel] || "I hear you. Would you like to learn about animals?");
+
+        function d() { alert(`So... ${name} wants to have a quiz, right?`); }
+        function goToQuiz(url) { d(); window.location.href = url; }
+    </script>
 </head>
 
 <body>
-    <nav class="bg-primary"><a href="https://ayaansh0404.github.io/facts/animal's.html" class="d">
-            <!-- <p class="text-white">home</p> -->
-            <h1><i class="fa-solid fa-house"></i></h1>
-        </a></nav>
-    <br>
-    <div class="row text-center">
-        <div class="col-4">
-            <h1>Word Reverser</h1>
-            <p>don't waste time geting a piece of paper and finding the reversed word, <br>when you can just do it here
-                in 2
-                seconds.</p>
-            <form action="">
-                <input type="text" class="form-control mb-2" id="wordinput" placeholder="Enter a word">
-                <button onclick="reverseWord()" type="reset" value="Reset">Reverse</button>
-            </form>
-            <p id="reversedWord"></p>
-        </div>
-        <div class="col-4">
-            <h1> I will guess your name</h1>
-            <p>Enter your name here</p>
-            <form action="">
-                <input type="text" class="form-control mb-2" placeholder="enter here" id="name">
-                <button type="reset" value="Reset" onclick="b()">click me</button>
-                <p id="p"></p>
-            </form>
-        </div>
-        <div class="col-4">
-            <h1>Calculator</h1>
-            <p>enter 2 numbers and then click + or - or x or %.</p>
-            <input type="number" class="form-control mb-2" name="" id="cal" placeholder="enter number 1, here ">
-            <input type="number" class="form-control mb-2" name="" id="cal2" placeholder="enter number 2 here">
-            <br>
-            <button id="+" onclick="plus()">+</button>
-            <button id="%" onclick="div()">%</button>
-            <button id="x" onclick="mul()">x</button>
-            <button id="-" onclick="min()">-</button>
-            <p id="ans"></p>
-        </div>
+
+    <nav class="navbar">
+        <div class="logo">🐾 Animals</div>
+        <ul class="nav-links">
+            <li><a href="#t-rex">T-Rex</a></li>
+            <li><a href="#golden-eagle">Golden Eagle</a></li>
+            <li><a href="#deers">Deers</a></li>
+            <li><a href="#komodo-dragon">Komodo Dragon</a></li>
+            <li><a href="#archerfish">Archerfish</a></li>
+            <li><a href="#beetle">Beetle</a></li>
+            <li><a href="#jaguar">Jaguar</a></li>
+            <li><a href="#titanoboa">Titanoboa</a></li>
+            <li><a href="#archaeopteryx">Archaeopteryx</a></li>
+            <li><a href="#elasmosaurus">Elasmosaurus</a></li>
+            <li><a href="#e">Quiz</a></li>
+            <li><a href="https://ayaansh0404.github.io/facts/fun.html">Fun & Games</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="welcome"><u>Animals 😉</u></h1>
+
+
+    <div class="animal-card" id="t-rex">
+        <h2>Tyrannosaurus rex</h2>
+        <img src="https://img.freepik.com/premium-photo/trex-jungle-angry-dinosaur-generative-ai-generated-art_853163-161.jpg"
+            width="200px">
+        <p>Tyrannosaurus rex was a tall dinosaur. <br>
+It stood about 18 feet tall. <br>
+Tyrannosaurus rex lived during the late "cretaceous Period" <br>
+It lived about 70 milion years ago <br>
+woodlands in western North America. <br>
+They were a predator.It spent most of it's time <br>
+hunting. They also were a scavenger. They looked for dead animals
+
+</p>
     </div>
 
-
-
-
-
-    <hr>
-    <div class="row text-center">
-        <div class="col-4 upside_down">
-            <h1>Upside down generater</h1>
-            <input type="text" class="form-control mb-2" placeholder="enter word here" id="in_down"><br>
-            <button onclick="usd()">click me to make it upside down</button><br>
-            <p id="ud" text-align="left"></p>
-        </div>
-        <div class="col-4 cursive">
-            <h1>Cursive generater</h1>
-            <input type="text" class="form-control md-2" placeholder="enter word here" id="in_cur"><br>
-            <button onclick="c()">click me to make it cursive</button><br>
-            <p id="cu" text-align="left"></p>
-        </div>
-        <div class="col-4 rps">
-            <h1>Rock Paper Scissors</h1>
-            <div id="choices">
-                <button id="rock">Rock</button>
-                <button id="paper">Paper</button>
-                <button id="scissors">Scissors</button>
-            </div>
-            <p id="result"></p>
-            <p>Player Score: <span id="user-score">0</span></p>
-            <p>Computer Score: <span id="computer-score">0</span></p>
-        </div>
+    <div class="animal-card" id="golden-eagle">
+        <h2>Golden Eagle</h2>
+        <img src="https://png.pngtree.com/png-clipart/20240310/original/pngtree-eagle-face-ai-generated-png-image_14556837.png"
+            width="200px">
+        <p>The Golden eagle is a large dark brown bird <br>
+of prey. with a wing span that can reach 7ft and th ability <br>
+to fly up to 198 mph. <br>
+They live 20 to 30 years in the wild, <br>
+but in human care they can live up to 45 to 68 years. <br>
+they also build enormous nests, they also have great eye sight. <br>
+They are known as the king of bird,</p>
     </div>
 
+    <div class="animal-card" id="deers">
+        <h2>Deers</h2>
+        <img src="https://cdn.pixabay.com/photo/2024/03/05/18/00/ai-generated-8614995_1280.png" width="35%">
+        <p>Deers are even-toed, ruminant mammals belonging to the family Cervidae. <br>
+They are known for being calm and gentle animals. <br>when they see a deer out in the wild.
+Deers are long-legged, thin animals. Their coloration is often grayish-brown to brownish-red, with light brown <br> or cream-colored undersides and only Male deers grow antlers.
 
 
-    <br>
-    <hr>
-    <div class="row">
-        <div class="col-4">
-            <h1>flappy <del>bird</del> <ins><i>ball</i>
-                </ins></h1>
-            <canvas id="gameCanvas" width="300" height="400"></canvas>
-            <button id="startBtn">Start Game</button>
-        </div>
-
-
-        <div class="col-4">
-            <h1>click me!</h1>
-            <button onclick="clickMe()">click me!</button><br>
-            <p id="noP">hi, if you click on me you get one point and your goal is...</p>
-            <input type="number" class="form-control mb-2" id="click_no" placeholder="type your goal">
-            <button onclick="clickMeSubject()">submit</button>
-        </div>
+</p>
     </div>
 
+    <div class="animal-card" id="komodo-dragon">
+        <h2>Komodo Dragon</h2>
+        <img src="https://cdn.pixabay.com/photo/2023/10/17/13/57/ai-generated-8321356_1280.jpg" width="35%">
+        <p>The Komodo dragon is a large reptile of the monitor lizard family Varanidae that is endemic to the Indonesian islands <br>
+of Komodo, Rinca, Flores, Gili Dasami, and Gili Motang.[5] It is the largest extant <br>species of lizard, with the males growing to a maximum length of 3 m (10 ft) and weighing up to 150 kg (330 lb).</p>
+    </div>
 
+    <div class="animal-card">
+        <h2 id="archerfish">Archerfish</h2>
+        <img src="https://www.aquariumofpacific.org/images/made_new/images-uploads-Archerfish_by_Robin_Riggs_600_q85.jpg"
+            width="250">
+        <p>Archerfish catch their prey by shooting or spitting water as far as 2-3 metres, in order to knock them into the water to eat!<br>
+It shoots its prey much like an archer. <br>
+Its narrow profile and eyesight <br>helps to shoot with accuracy.</p>
+    </div>
 
+    <div class="animal-card" id="beetle">
+        <h2>Bombardier Beetle</h2>
+        <img src="https://img.freepik.com/premium-photo/bombardier-beetle-spraying-hot-chemicals-defensive-mechanism-visualized-scientific_1314184-6481.jpg"
+            width="250">
+        <p>More than 40 species of bombardier beetles are found in the United States. <br>
+Each has blue elytra <br>(wing coverings)
+and a reddish head and limbs. They are considered remarkable because of their ability <br>to shoot a boiling, corrosive substance at predators
+
+</p>
+    </div>
+
+    <div class="animal-card" id="jaguar">
+        <h2>Jaguar</h2>
+        <img src="https://static.vecteezy.com/system/resources/previews/038/008/866/large_2x/ai-generated-jaguar-high-quality-image-free-photo.jpg"
+            width="35%">
+        <p>Jaguars, the largest cats in the Americas, are powerful, solitary hunters<br>
+with unique rosette spots,<br>
+they can jump up to 20 feet, they have strong bites, and a love for swimming, though their numbers
+are declining and they're <br>near-threatened,
+says Defenders of Wildlife.</p>
+    </div>
+
+    <div class="animal-card" id="titanoboa">
+        <h2>Titanoboa</h2>
+        <img src="https://img.freepik.com/premium-photo/titanoboa-is-angry-background-wallpaper-ai-generated_1087980-1053.jpg?w=2000"
+            width="35%">
+        <p>Titanoboa, the largest snake ever discovered, lived about 60 to 58 million years ago during the <br>
+Paleocene epoch. It could grow up to
+12.8 meters (42 feet) long and <br>weigh between 730 and 1,135 kilograms (1,600 to 2,500 pounds).
+This prehistoric snake thrived in ancient tropical rainforests, <br>likely preying on large animals like fish and crocodiles.
+
+</p>
+    </div>
+    <div class="animal-card" id="archaeopteryx">
+        <h2>Archaeopteryx</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKT6e-waME84lSdFHJnemsA_Ia9pM9MCVltZcsMALd25tWh-4rr8Q2qUJ3nYHDMrVKKIY&usqp=CAU"
+            width="35%">
+        <p>
+            Archaeopteryx, a Jurassic-era animal about the size of a raven, <br>is one of the most famous fossils in the
+            world. It is widely considered a transitional form between dinosaurs and modern birds due to its combination
+            <br>of bird-like and reptilian features</p>
+    </div>
+    <div class="animal-card" id="elasmosaurus">
+        <h2>Elasmosaurus</h2>
+        <img src="https://thumbs.dreamstime.com/b/elasmosaurus-undersea-was-aquatic-dinosaur-lived-cretaceous-period-d-render-55980393.jpg" width="35%">
+        <p>
+            It ate crabs, mollusks, and fish. It competed for food with another group of marine predators of that time called mosasaurs. <br>Because of Elasmosaurus's long neck, short tail, <br>and turtle-shaped body, it could not swim very fast. However, <br>Elasmosaurus probably used its long neck to take prey by surprise.
+        </p>
+    </div>
+
+  
+    <div id="e" class="animal-card">
+        <h1>QUIZ TIME!</h1>
+        <a class="text-light" href="https://ayaansh0404.github.io/facts/quiz1ani.html"><button class="text-light">Quiz
+                1</button></a>
+        <button>Quiz 2</button>
+        <button>Quiz 3</button>
+    </div>
+
+    
     <footer>
-        <p><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
+        <p>By Ayaansh Agrawal (started in 2025)</p>
     </footer>
-
-
-
-   <script>
-function b() {
-    let name = document.getElementById('name').value;
-    if (name === "") {
-        document.getElementById("p").innerHTML = `your name is _____  (don't ask how I know🤣😜)`;
-        Swal.fire({ 
-            title: `your name is _____ (don't ask how I know🤣😜)`, 
-            icon: 'info', 
-            showClass: { popup: 'animate__animated animate__fadeInDown' } 
-        });
-    } else {
-        document.getElementById("p").innerHTML = `your name is ${name} (don't ask how I know🤣😜)`;
-        Swal.fire({ 
-            title: `your name is ${name} (don't ask how I know🤣😜)`, 
-            icon: 'info', 
-            showClass: { popup: 'animate__animated animate__fadeInDown' } 
-        });
-    }
-}
-
-function reverseWord() {
-    let wordInput = document.getElementById('wordinput').value;
-    let reversedWordElement = document.getElementById('reversedWord');
-    if (wordInput === "") {
-        reversedWordElement.innerHTML = `the reversed word of ____ is _____`;
-        Swal.fire({ title: `the reversed word of ____ is _____`, icon: 'success' });
-    } else {
-        let reversedWord = wordInput.split('').reverse().join('');
-        reversedWordElement.innerHTML = `the reversed word of ${wordInput} is ${reversedWord}`;
-        Swal.fire({ title: `the reversed word of ${wordInput} is ${reversedWord}`, icon: 'success' });
-    }
-}
-
-function plus() { calc((x, y) => x + y); }
-function min() { calc((x, y) => x - y); }
-function mul() { calc((x, y) => x * y); }
-function div() { calc((x, y) => x / y); }
-
-function calc(operation) {
-    let x = parseFloat(document.getElementById("cal").value);
-    let y = parseFloat(document.getElementById("cal2").value);
-    if (isNaN(x) || isNaN(y)) {
-        Swal.fire({ title: "Please enter both numbers", icon: "warning" });
-        return;
-    }
-    let result = operation(x, y);
-    document.getElementById("ans").textContent = `The answer is ${result}`;
-    Swal.fire({ title: `The answer is ${result}`, icon: "success" });
-}
-
-function usd() {
-    let down = document.getElementById("in_down").value;
-    document.getElementById("ud").innerHTML = down;
-}
-
-function c() {
-    let cur = document.getElementById("in_cur").value;
-    document.getElementById("cu").innerHTML = cur;
-}
-
-// Rock Paper Scissors
-let userScore = 0;
-let computerScore = 0;
-const userScore_span = document.getElementById("user-score");
-const computerScore_span = document.getElementById("computer-score");
-const result_p = document.getElementById("result");
-const rock_button = document.getElementById("rock");
-const paper_button = document.getElementById("paper");
-const scissors_button = document.getElementById("scissors");
-
-function getComputerChoice() {
-    const choices = ['Rock', 'Paper', 'Scissors'];
-    return choices[Math.floor(Math.random() * 3)];
-}
-
-function game(userChoice) {
-    const computerChoice = getComputerChoice();
-    let outcome;
-    if (userChoice === computerChoice) {
-        outcome = "It's a tie!";
-    } else if ((userChoice === "Rock" && computerChoice === "Scissors") ||
-               (userChoice === "Paper" && computerChoice === "Rock") ||
-               (userChoice === "Scissors" && computerChoice === "Paper")) {
-        userScore++;
-        userScore_span.innerHTML = userScore;
-        outcome = `You win! ${userChoice} beats ${computerChoice}.`;
-    } else {
-        computerScore++;
-        computerScore_span.innerHTML = computerScore;
-        outcome = `You lose! because ${computerChoice} beats ${userChoice}.`;
-    }
-    result_p.innerHTML = `You chose ${userChoice}, Computer chose ${computerChoice}. ${outcome}`;
-}
-
-rock_button.addEventListener('click', () => game("Rock"));
-paper_button.addEventListener('click', () => game("Paper"));
-scissors_button.addEventListener('click', () => game("Scissors"));
-
-// Flappy Ball
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-const startBtn = document.getElementById("startBtn");
-let birdX, birdY, gravity, lift, velocity;
-let pipeX, pipeWidth, gap, pipeTop;
-let score, gameOver, gameStarted;
-let startBirdY = 150;
-let startDir = 1;
-
-function initGame() {
-    birdX = 50;
-    birdY = 150;
-    gravity = 0.5;
-    lift = -6;
-    velocity = 0;
-    pipeX = 300;
-    pipeWidth = 40;
-    gap = 100;
-    pipeTop = Math.floor(Math.random() * 150) + 50;
-    score = 0;
-    gameOver = false;
-    gameStarted = true;
-    startBtn.style.display = "none";
-}
-
-document.addEventListener("keydown", function (e) {
-    if (e.code === "Space" && gameStarted && !gameOver) velocity = lift;
-});
-
-startBtn.addEventListener("click", initGame);
-
-function drawBird() {
-    ctx.beginPath();
-    ctx.arc(birdX, birdY, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.stroke();
-}
-
-function drawPipe() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(pipeX, 0, pipeWidth, pipeTop);
-    ctx.fillRect(pipeX, pipeTop + gap, pipeWidth, canvas.height - (pipeTop + gap));
-}
-
-function update() {
-    if (!gameStarted || gameOver) return;
-    velocity += gravity;
-    birdY += velocity;
-    pipeX -= 2;
-    if (pipeX + pipeWidth < 0) {
-        pipeX = canvas.width;
-        pipeTop = Math.floor(Math.random() * 150) + 50;
-        score++;
-    }
-    if (birdY > canvas.height || birdY < 0 ||
-       (birdX + 10 > pipeX && birdX - 10 < pipeX + pipeWidth && (birdY - 10 < pipeTop || birdY + 10 > pipeTop + gap))) {
-        gameOver = true;
-        gameStarted = false;
-        startBtn.style.display = "inline-block";
-        startBtn.innerText = "Restart Game";
-    }
-}
-
-function drawScore() {
-    ctx.fillStyle = "black";
-    ctx.font = "16px Arial";
-    ctx.fillText("Score: " + score, 10, 20);
-}
-
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (!gameStarted && !gameOver) {
-        startBirdY += startDir * 0.6;
-        if (startBirdY > 180 || startBirdY < 120) startDir *= -1;
-        ctx.beginPath();
-        ctx.arc(50, startBirdY, 10, 0, Math.PI * 2);
-        ctx.fillStyle = "yellow";
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = "black";
-        ctx.font = "18px Arial";
-        ctx.fillText("Click Start to Play", 70, 200);
-    } else {
-        drawBird();
-        drawPipe();
-        drawScore();
-    }
-    if (gameOver) {
-        ctx.fillStyle = "red";
-        ctx.font = "30px Arial";
-        ctx.fillText("Game Over", 80, 180);
-    }
-    update();
-    requestAnimationFrame(gameLoop);
-}
-gameLoop();
-
-// Click Me Game
-let clickCount = 0;
-let goal = 0;
-
-function clickMeSubject() {
-    goal = parseInt(document.getElementById("click_no").value);
-    if (isNaN(goal) || goal <= 0) {
-        document.getElementById("noP").innerHTML = "⚠️ Please enter a positive number greater than 0.";
-        goal = 0;
-        clickCount = 0;
-        return;
-    }
-    clickCount = 0;
-    document.getElementById("noP").innerHTML = "Your goal is " + goal + " clicks. Start clicking!";
-}
-
-// Fixed to avoid conflict with built-in click()
-window.clickMe = function() {
-    if (goal <= 0) return;
-    clickCount++;
-    if (clickCount >= goal) {
-        document.getElementById("noP").innerHTML = "🎉 YOU WIN! 🎉";
-        Swal.fire({
-            title: '🎉 Congratulations! 🎉',
-            text: `You reached your goal of ${goal} clicks!`,
-            icon: 'success',
-            confirmButtonText: 'Awesome!'
-        });
-    } else {
-        document.getElementById("noP").innerHTML = "Clicks: " + clickCount;
-    }
-};
-</script>
-
-
-
 
 </body>
 

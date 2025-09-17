@@ -1,554 +1,281 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>fun & games</title>
-    <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            /* padding-left: 300px;
-    padding-right: 300px; */
-            min-height: 100vh;
-            margin: 0;
-            background: #f0f0f0;
-            display: block;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun & Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
 
-        div {
-            padding: 10px;
-        }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 50px;
+    }
 
-        nav {
-            width: 100% !important;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            padding-left: 20px;
-        }
+    .col-4 {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+      flex: 1 1 250px;
+      max-width: 300px;
+    }
 
-        nav a {
-            text-decoration: none;
-            margin-left: 20px;
-        }
+    input,
+    button {
+      border-radius: 5px;
+      font-size: 16px;
+      border: 10px;
+      padding: 5px 10px;
+    }
 
-        nav i {
-            font-size: 2rem;
-            color: black;
-            transition: color 0.3s;
+    button {
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        }
+    button:hover {
+      background-color: aqua;
+      color: black;
+    }
 
-        nav i:hover {
-            color: white;
-        }
+    canvas {
+      background: #87ceeb;
+      border: 2px solid #000;
+      border-radius: 10px;
+      width: 200px;
+    }
 
-        nav p {
-            align-items: start;
-        }
-
-        button,
-        input {
-            box-shadow: 0 0 2px black;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            border: none;
-        }
-
-        button {
-            background-color: red;
-            color: white;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background-color: aqua;
-            color: black;
-            animation-name: rotateBtn;
-            animation-duration: 0.5s;
-        }
-
-        @keyframes rotateBtn {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(180deg);
-            }
-        }
-
-        input {
-            height: 40px;
-            width: 100%;
-            padding: 5px 10px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px !important;
-            margin-bottom: 20px;
-            margin-left: 300px;
-            margin-right: 300px;
-        }
-
-        .col-4 {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-            flex: 1 1 250px;
-            max-width: 300px;
-        }
-
-        .e,
-        .f,
-        .cursive,
-        .d,
-        .upside_down {
-            width: 100%;
-            text-align: center;
-            margin: 10px auto;
-        }
-
-        .e {
-            border: 10px dotted rgb(5, 7, 5);
-        }
-
-        .f {
-            border: 10px double red;
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .cursive {
-            border: 10px solid transparent;
-        }
-
-        #ud {
-            transform: rotate(180deg);
-            font-size: xx-large;
-        }
-
-        #cu {
-            font-family: "Brush Script MT", cursive;
-            font-size: xx-large;
-        }
-
-        #choices button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        canvas {
-            background: #87ceeb;
-            border: 2px solid #000;
-            border-radius: 10px;
-            width: 200px;
-        }
-
-        #startBtn {
-            margin-top: 10px;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            background: green;
-            color: white;
-        }
-
-        footer {
-            background: linear-gradient(to right, red, orange);
-            text-align: center;
-            padding: 10px;
-            color: white;
-            margin-top: 30px;
-            width: 100%;
-        }
-
-        hr {
-            height: 10px;
-            border: none;
-            background-color: #ccc;
-        }
-
-        .swal2-popup {
-            font-size: 1.3rem !important;
-            padding: 30px !important;
-            max-width: 90vw !important;
-            width: auto !important;
-        }
-
-        .swal2-title {
-            font-size: 1.5rem !important;
-        }
-
-        .swal2-content {
-            font-size: 1.2rem !important;
-        }
-
-        .swal2-popup {
-            font-size: 1.3rem !important;
-            padding: 30px !important;
-            max-width: 90vw !important;
-            width: auto !important;
-        }
-
-        .swal2-container {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-    </style>
+    footer {
+      background: linear-gradient(to right, red, orange);
+      text-align: center;
+      padding: 10px;
+      color: white;
+      margin-top: 30px;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
-    <nav class="bg-primary"><a href="https://ayaansh0404.github.io/facts/animal's.html" class="d">
-            <!-- <p class="text-white">home</p> -->
-            <h1><i class="fa-solid fa-house"></i></h1>
-        </a></nav>
-    <br>
-    <div class="row text-center">
-        <div class="col-4">
-            <h1>Word Reverser</h1>
-            <p>don't waste time geting a piece of paper and finding the reversed word, <br>when you can just do it here
-                in 2
-                seconds.</p>
-            <form action="">
-                <input type="text" class="form-control mb-2" id="wordinput" placeholder="Enter a word">
-                <button onclick="reverseWord()" type="reset" value="Reset">Reverse</button>
-            </form>
-            <p id="reversedWord"></p>
-        </div>
-        <div class="col-4">
-            <h1> I will guess your name</h1>
-            <p>Enter your name here</p>
-            <form action="">
-                <input type="text" class="form-control mb-2" placeholder="enter here" id="name">
-                <button type="reset" value="Reset" onclick="b()">click me</button>
-                <p id="p"></p>
-            </form>
-        </div>
-        <div class="col-4">
-            <h1>Calculator</h1>
-            <p>enter 2 numbers and then click + or - or x or %.</p>
-            <input type="number" class="form-control mb-2" name="" id="cal" placeholder="enter number 1, here ">
-            <input type="number" class="form-control mb-2" name="" id="cal2" placeholder="enter number 2 here">
-            <br>
-            <button id="+" onclick="plus()">+</button>
-            <button id="%" onclick="div()">%</button>
-            <button id="x" onclick="mul()">x</button>
-            <button id="-" onclick="min()">-</button>
-            <p id="ans"></p>
-        </div>
+  <nav class="bg-primary p-2"><a href="https://ayaansh0404.github.io/facts/animal's.html">
+      <h1><i class="fa-solid fa-house"></i></h1>
+    </a></nav>
+
+  <!-- First Row: Word Reverser, Name Guesser, Calculator -->
+  <div class="row text-center">
+    <div class="col-4">
+      <h1>Word Reverser</h1>
+      <input type="text" class="form-control md-2" id="wordinput" placeholder="Enter a word">
+      <button onclick="reverseWord()">Reverse</button>
+      <p id="reversedWord"></p>
     </div>
-
-
-
-
-
-    <hr>
-    <div class="row text-center">
-        <div class="col-4 upside_down">
-            <h1>Upside down generater</h1>
-            <input type="text" class="form-control mb-2" placeholder="enter word here" id="in_down"><br>
-            <button onclick="usd()">click me to make it upside down</button><br>
-            <p id="ud" text-align="left"></p>
-        </div>
-        <div class="col-4 cursive">
-            <h1>Cursive generater</h1>
-            <input type="text" class="form-control md-2" placeholder="enter word here" id="in_cur"><br>
-            <button onclick="c()">click me to make it cursive</button><br>
-            <p id="cu" text-align="left"></p>
-        </div>
-        <div class="col-4 rps">
-            <h1>Rock Paper Scissors</h1>
-            <div id="choices">
-                <button id="rock">Rock</button>
-                <button id="paper">Paper</button>
-                <button id="scissors">Scissors</button>
-            </div>
-            <p id="result"></p>
-            <p>Player Score: <span id="user-score">0</span></p>
-            <p>Computer Score: <span id="computer-score">0</span></p>
-        </div>
+    <div class="col-4">
+      <h1>I will guess your name</h1>
+      <input type="text" class="form-control md-2" id="name" placeholder="Enter your name">
+      <button onclick="guessName()">Click me</button>
+      <p id="p"></p>
     </div>
-
-
-
-    <br>
-    <hr>
-    <div class="row">
-        <div class="col-4">
-            <h1>flappy <del>bird</del> <ins><i>ball</i>
-                </ins></h1>
-            <canvas id="gameCanvas" width="300" height="400"></canvas>
-            <button id="startBtn">Start Game</button>
-        </div>
-
-
-        <div class="col-4">
-            <h1>click me!</h1>
-            <button onclick="clickMe()">click me!</button><br>
-            <p id="noP">hi, if you click on me you get one point and your goal is...</p>
-            <input type="number" class="form-control mb-2" id="click_no" placeholder="type your goal">
-            <button onclick="clickMeSubject()">submit</button>
-        </div>
+    <div class="col-4">
+      <h1>Calculator</h1>
+      <input type="number" class="form-control md-2" id="cal" placeholder="Number 1">
+      <input type="number" id="cal2" placeholder="Number 2">
+      <br>
+      <button onclick="plus()">+</button>
+      <button onclick="div()">%</button>
+      <button onclick="mul()">x</button>
+      <button onclick="min()">-</button>
+      <p id="ans"></p>
     </div>
+  </div>
 
+  <hr>
 
+  <!-- Second Row: Upside Down, Cursive, Rock-Paper-Scissors -->
+  <div class="row text-center">
+    <div class="col-4">
+      <h1>Upside Down Generator</h1>
+      <input type="text" class="form-control md-2" id="word3" placeholder="Enter word">
+      <button onclick="upsideDown()">Convert</button>
+      <p id="result3"></p>
+    </div>
+    <div class="col-4">
+      <h1>Cursive Generator</h1>
+      <input type="text" class="form-control md-2" id="in_cur" placeholder="Enter word">
+      <button onclick="cursiveGenerator()">Convert</button>
+      <p id="cu"></p>
+    </div>
+    <div class="col-4">
+      <h1>Rock Paper Scissors</h1>
+      <div id="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+      </div>
+      <p id="result"></p>
+      <p>Player Score: <span id="user-score">0</span></p>
+      <p>Computer Score: <span id="computer-score">0</span></p>
+    </div>
+  </div>
 
-    <footer>
-        <p><u>By Ayaansh Agrawal</u> (started on the year <u>2025</u>)</p>
-    </footer>
+  <hr>
 
+  <!-- Third Row: Flappy Ball & Click Me Game -->
+  <div class="row text-center">
+    <div class="col-4">
+      <h1>Flappy <del>Bird</del> <ins><i>Ball</i></ins></h1>
+      <canvas id="gameCanvas" width="300" height="400"></canvas>
+      <button id="startBtn">Start Game</button>
+    </div>
+    <div class="col-4">
+      <h1>Click Me!</h1>
+      <button onclick="clickMe()">Click me!</button>
+      <p id="noP">Set your click goal...</p>
+      <input type="number" class="form-control md-2" id="click_no" placeholder="Type your goal">
+      <button onclick="clickMeSubject()">Submit</button>
+    </div>
+  </div>
 
+  <footer>
+    <p>By Ayaansh Agrawal (started in 2025)</p>
+  </footer>
 
-   <script>
-function b() {
-    let name = document.getElementById('name').value;
-    if (name === "") {
-        document.getElementById("p").innerHTML = `your name is _____  (don't ask how I know🤣😜)`;
-        Swal.fire({ 
-            title: `your name is _____ (don't ask how I know🤣😜)`, 
-            icon: 'info', 
-            showClass: { popup: 'animate__animated animate__fadeInDown' } 
-        });
-    } else {
-        document.getElementById("p").innerHTML = `your name is ${name} (don't ask how I know🤣😜)`;
-        Swal.fire({ 
-            title: `your name is ${name} (don't ask how I know🤣😜)`, 
-            icon: 'info', 
-            showClass: { popup: 'animate__animated animate__fadeInDown' } 
-        });
+  <script>
+    // Name Guesser
+    function guessName() {
+      let name = document.getElementById('name').value || "_____";
+      let text = `Your name is ${name} (don't ask how I know🤣😜)`;
+      document.getElementById("p").innerHTML = text;
+      Swal.fire({ title: text, icon: 'info' });
     }
-}
 
-function reverseWord() {
-    let wordInput = document.getElementById('wordinput').value;
-    let reversedWordElement = document.getElementById('reversedWord');
-    if (wordInput === "") {
-        reversedWordElement.innerHTML = `the reversed word of ____ is _____`;
-        Swal.fire({ title: `the reversed word of ____ is _____`, icon: 'success' });
-    } else {
-        let reversedWord = wordInput.split('').reverse().join('');
-        reversedWordElement.innerHTML = `the reversed word of ${wordInput} is ${reversedWord}`;
-        Swal.fire({ title: `the reversed word of ${wordInput} is ${reversedWord}`, icon: 'success' });
+    // Word Reverser
+    function reverseWord() {
+      let word = document.getElementById("wordinput").value;
+      let reversed = word.split("").reverse().join("");
+      document.getElementById("reversedWord").textContent = reversed || "____";
+      Swal.fire({ title: `Reversed: ${reversed || "____"}`, icon: 'success' });
     }
-}
 
-function plus() { calc((x, y) => x + y); }
-function min() { calc((x, y) => x - y); }
-function mul() { calc((x, y) => x * y); }
-function div() { calc((x, y) => x / y); }
-
-function calc(operation) {
-    let x = parseFloat(document.getElementById("cal").value);
-    let y = parseFloat(document.getElementById("cal2").value);
-    if (isNaN(x) || isNaN(y)) {
-        Swal.fire({ title: "Please enter both numbers", icon: "warning" });
-        return;
+    // Calculator
+    function plus() { calc((x, y) => x + y); }
+    function min() { calc((x, y) => x - y); }
+    function mul() { calc((x, y) => x * y); }
+    function div() { calc((x, y) => x / y); }
+    function calc(op) {
+      let x = parseFloat(document.getElementById("cal").value);
+      let y = parseFloat(document.getElementById("cal2").value);
+      if (isNaN(x) || isNaN(y)) { Swal.fire({ title: "Enter both numbers", icon: "warning" }); return; }
+      let res = op(x, y);
+      document.getElementById("ans").textContent = `Answer: ${res}`;
+      Swal.fire({ title: `Answer: ${res}`, icon: "success" });
     }
-    let result = operation(x, y);
-    document.getElementById("ans").textContent = `The answer is ${result}`;
-    Swal.fire({ title: `The answer is ${result}`, icon: "success" });
-}
 
-function usd() {
-    let down = document.getElementById("in_down").value;
-    document.getElementById("ud").innerHTML = down;
-}
-
-function c() {
-    let cur = document.getElementById("in_cur").value;
-    document.getElementById("cu").innerHTML = cur;
-}
-
-// Rock Paper Scissors
-let userScore = 0;
-let computerScore = 0;
-const userScore_span = document.getElementById("user-score");
-const computerScore_span = document.getElementById("computer-score");
-const result_p = document.getElementById("result");
-const rock_button = document.getElementById("rock");
-const paper_button = document.getElementById("paper");
-const scissors_button = document.getElementById("scissors");
-
-function getComputerChoice() {
-    const choices = ['Rock', 'Paper', 'Scissors'];
-    return choices[Math.floor(Math.random() * 3)];
-}
-
-function game(userChoice) {
-    const computerChoice = getComputerChoice();
-    let outcome;
-    if (userChoice === computerChoice) {
-        outcome = "It's a tie!";
-    } else if ((userChoice === "Rock" && computerChoice === "Scissors") ||
-               (userChoice === "Paper" && computerChoice === "Rock") ||
-               (userChoice === "Scissors" && computerChoice === "Paper")) {
-        userScore++;
-        userScore_span.innerHTML = userScore;
-        outcome = `You win! ${userChoice} beats ${computerChoice}.`;
-    } else {
-        computerScore++;
-        computerScore_span.innerHTML = computerScore;
-        outcome = `You lose! because ${computerChoice} beats ${userChoice}.`;
+    // Upside Down Generator
+    function upsideDown() {
+      const map = { 'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'ʃ', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z', 'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': '◖', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '┴', 'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z', '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6' };
+      let text = document.getElementById("word3").value;
+      let result = text.split("").map(ch => map[ch] || ch).reverse().join("");
+      document.getElementById("result3").textContent = result;
     }
-    result_p.innerHTML = `You chose ${userChoice}, Computer chose ${computerChoice}. ${outcome}`;
-}
+    document.getElementById("result3").addEventListener("copy", function (e) {
+      e.preventDefault();
+      e.clipboardData.setData("text/plain", this.textContent);
+    });
 
-rock_button.addEventListener('click', () => game("Rock"));
-paper_button.addEventListener('click', () => game("Paper"));
-scissors_button.addEventListener('click', () => game("Scissors"));
-
-// Flappy Ball
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-const startBtn = document.getElementById("startBtn");
-let birdX, birdY, gravity, lift, velocity;
-let pipeX, pipeWidth, gap, pipeTop;
-let score, gameOver, gameStarted;
-let startBirdY = 150;
-let startDir = 1;
-
-function initGame() {
-    birdX = 50;
-    birdY = 150;
-    gravity = 0.5;
-    lift = -6;
-    velocity = 0;
-    pipeX = 300;
-    pipeWidth = 40;
-    gap = 100;
-    pipeTop = Math.floor(Math.random() * 150) + 50;
-    score = 0;
-    gameOver = false;
-    gameStarted = true;
-    startBtn.style.display = "none";
-}
-
-document.addEventListener("keydown", function (e) {
-    if (e.code === "Space" && gameStarted && !gameOver) velocity = lift;
-});
-
-startBtn.addEventListener("click", initGame);
-
-function drawBird() {
-    ctx.beginPath();
-    ctx.arc(birdX, birdY, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.stroke();
-}
-
-function drawPipe() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(pipeX, 0, pipeWidth, pipeTop);
-    ctx.fillRect(pipeX, pipeTop + gap, pipeWidth, canvas.height - (pipeTop + gap));
-}
-
-function update() {
-    if (!gameStarted || gameOver) return;
-    velocity += gravity;
-    birdY += velocity;
-    pipeX -= 2;
-    if (pipeX + pipeWidth < 0) {
-        pipeX = canvas.width;
-        pipeTop = Math.floor(Math.random() * 150) + 50;
-        score++;
+    // Cursive Generator
+    function cursiveGenerator() {
+      const map = { 'a': '𝒶', 'b': '𝒷', 'c': '𝒸', 'd': '𝒹', 'e': 'ℯ', 'f': '𝒻', 'g': 'ℊ', 'h': '𝒽', 'i': '𝒾', 'j': '𝒿', 'k': '𝓀', 'l': '𝓁', 'm': '𝓂', 'n': '𝓃', 'o': 'ℴ', 'p': '𝓅', 'q': '𝓆', 'r': '𝓇', 's': '𝓈', 't': '𝓉', 'u': '𝓊', 'v': '𝓋', 'w': '𝓌', 'x': '𝓍', 'y': '𝓎', 'z': '𝓏', 'A': '𝒜', 'B': '𝐵', 'C': '𝒞', 'D': '𝒟', 'E': '𝐸', 'F': '𝐹', 'G': '𝒢', 'H': '𝐻', 'I': '𝐼', 'J': '𝒥', 'K': '𝒦', 'L': '𝐿', 'M': '𝑀', 'N': '𝒩', 'O': '𝒪', 'P': '𝒫', 'Q': '𝒬', 'R': '𝑅', 'S': '𝒮', 'T': '𝒯', 'U': '𝒰', 'V': '𝒱', 'W': '𝒲', 'X': '𝒳', 'Y': '𝒴', 'Z': '𝒵' };
+      let text = document.getElementById("in_cur").value;
+      let result = text.split("").map(ch => map[ch] || ch).join("");
+      document.getElementById("cu").textContent = result;
     }
-    if (birdY > canvas.height || birdY < 0 ||
-       (birdX + 10 > pipeX && birdX - 10 < pipeX + pipeWidth && (birdY - 10 < pipeTop || birdY + 10 > pipeTop + gap))) {
-        gameOver = true;
-        gameStarted = false;
-        startBtn.style.display = "inline-block";
-        startBtn.innerText = "Restart Game";
+
+    // Rock-Paper-Scissors
+    let userScore = 0, computerScore = 0;
+    const userScore_span = document.getElementById("user-score");
+    const computerScore_span = document.getElementById("computer-score");
+    const result_p = document.getElementById("result");
+    function getComputerChoice() { return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)]; }
+    function game(userChoice) {
+      let compChoice = getComputerChoice();
+      let outcome = "";
+      if (userChoice === compChoice) outcome = "It's a tie!";
+      else if ((userChoice === "Rock" && compChoice === "Scissors") || (userChoice === "Paper" && compChoice === "Rock") || (userChoice === "Scissors" && compChoice === "Paper")) { userScore++; userScore_span.innerHTML = userScore; outcome = `You win! ${userChoice} beats ${compChoice}.`; }
+      else { computerScore++; computerScore_span.innerHTML = computerScore; outcome = `You lose! ${compChoice} beats ${userChoice}.`; }
+      result_p.innerHTML = `You chose ${userChoice}, Computer chose ${compChoice}. ${outcome}`;
     }
-}
+    document.getElementById("rock").addEventListener("click", () => game("Rock"));
+    document.getElementById("paper").addEventListener("click", () => game("Paper"));
+    document.getElementById("scissors").addEventListener("click", () => game("Scissors"));
 
-function drawScore() {
-    ctx.fillStyle = "black";
-    ctx.font = "16px Arial";
-    ctx.fillText("Score: " + score, 10, 20);
-}
+    // Click Me Game
+    let clickCount = 0, goal = 0;
+    function clickMeSubject() {
+      goal = parseInt(document.getElementById("click_no").value);
+      if (isNaN(goal) || goal <= 0) { document.getElementById("noP").innerHTML = "⚠️ Please enter a positive number > 0."; goal = 0; clickCount = 0; return; }
+      clickCount = 0; document.getElementById("noP").innerHTML = "Goal: " + goal + " clicks. Start clicking!";
+    }
+    window.clickMe = function () {
+      if (goal <= 0) return;
+      clickCount++;
+      if (clickCount >= goal) { document.getElementById("noP").innerHTML = "🎉 YOU WIN! 🎉"; Swal.fire({ title: '🎉 Congratulations! 🎉', text: `You reached your goal of ${goal} clicks!`, icon: 'success', confirmButtonText: 'Awesome!' }); }
+      else document.getElementById("noP").innerHTML = "Clicks: " + clickCount;
+    }
 
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (!gameStarted && !gameOver) {
+    // Flappy Ball
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const startBtn = document.getElementById("startBtn");
+    let birdX, birdY, gravity, lift, velocity, pipeX, pipeWidth, gap, pipeTop, score, gameOver, gameStarted, startBirdY = 150, startDir = 1;
+
+    function initGame() {
+      birdX = 50; birdY = 150; gravity = 0.5; lift = -6; velocity = 0;
+      pipeX = 300; pipeWidth = 40; gap = 100; pipeTop = Math.floor(Math.random() * 150) + 50;
+      score = 0; gameOver = false; gameStarted = true; startBtn.style.display = "none";
+    }
+    document.addEventListener("keydown", function (e) { if (e.code === "Space" && gameStarted && !gameOver) velocity = lift; });
+    startBtn.addEventListener("click", initGame);
+    function drawBird() { ctx.beginPath(); ctx.arc(birdX, birdY, 10, 0, Math.PI * 2); ctx.fillStyle = "yellow"; ctx.fill(); ctx.stroke(); }
+    function drawPipe() { ctx.fillStyle = "green"; ctx.fillRect(pipeX, 0, pipeWidth, pipeTop); ctx.fillRect(pipeX, pipeTop + gap, pipeWidth, canvas.height - (pipeTop + gap)); }
+    function update() {
+      if (!gameStarted || gameOver) return;
+      velocity += gravity; birdY += velocity; pipeX -= 2;
+      if (pipeX + pipeWidth < 0) { pipeX = canvas.width; pipeTop = Math.floor(Math.random() * 150) + 50; score++; }
+      if (birdY > canvas.height || birdY < 0 || (birdX + 10 > pipeX && birdX - 10 < pipeX + pipeWidth && (birdY - 10 < pipeTop || birdY + 10 > pipeTop + gap))) {
+        gameOver = true; gameStarted = false; startBtn.style.display = "inline-block"; startBtn.innerText = "Restart Game";
+      }
+    }
+    function drawScore() { ctx.fillStyle = "black"; ctx.font = "16px Arial"; ctx.fillText("Score: " + score, 10, 20); }
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!gameStarted && !gameOver) {
         startBirdY += startDir * 0.6;
         if (startBirdY > 180 || startBirdY < 120) startDir *= -1;
-        ctx.beginPath();
-        ctx.arc(50, startBirdY, 10, 0, Math.PI * 2);
-        ctx.fillStyle = "yellow";
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = "black";
-        ctx.font = "18px Arial";
-        ctx.fillText("Click Start to Play", 70, 200);
-    } else {
-        drawBird();
-        drawPipe();
-        drawScore();
+        ctx.beginPath(); ctx.arc(50, startBirdY, 10, 0, Math.PI * 2); ctx.fillStyle = "yellow"; ctx.fill(); ctx.stroke();
+        ctx.fillStyle = "black"; ctx.font = "18px Arial"; ctx.fillText("Click Start to Play", 70, 200);
+      } else { drawBird(); drawPipe(); drawScore(); }
+      if (gameOver) { ctx.fillStyle = "red"; ctx.font = "30px Arial"; ctx.fillText("Game Over", 80, 180); }
+      update(); requestAnimationFrame(gameLoop);
     }
-    if (gameOver) {
-        ctx.fillStyle = "red";
-        ctx.font = "30px Arial";
-        ctx.fillText("Game Over", 80, 180);
-    }
-    update();
-    requestAnimationFrame(gameLoop);
-}
-gameLoop();
-
-// Click Me Game
-let clickCount = 0;
-let goal = 0;
-
-function clickMeSubject() {
-    goal = parseInt(document.getElementById("click_no").value);
-    if (isNaN(goal) || goal <= 0) {
-        document.getElementById("noP").innerHTML = "⚠️ Please enter a positive number greater than 0.";
-        goal = 0;
-        clickCount = 0;
-        return;
-    }
-    clickCount = 0;
-    document.getElementById("noP").innerHTML = "Your goal is " + goal + " clicks. Start clicking!";
-}
-
-// Fixed to avoid conflict with built-in click()
-window.clickMe = function() {
-    if (goal <= 0) return;
-    clickCount++;
-    if (clickCount >= goal) {
-        document.getElementById("noP").innerHTML = "🎉 YOU WIN! 🎉";
-        Swal.fire({
-            title: '🎉 Congratulations! 🎉',
-            text: `You reached your goal of ${goal} clicks!`,
-            icon: 'success',
-            confirmButtonText: 'Awesome!'
-        });
-    } else {
-        document.getElementById("noP").innerHTML = "Clicks: " + clickCount;
-    }
-};
-</script>
-
-
-
-
+    gameLoop();
+  </script>
 </body>
 
 </html>
