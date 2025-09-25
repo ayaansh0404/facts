@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultra Smart Offline Chatbot</title>
+<style>
+body { font-family: Arial; background:#f0f0f0; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;}
+.chat-container { width:500px; max-width:95%; background:white; border-radius:10px; display:flex; flex-direction:column; box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.chat-box { flex:1; padding:10px; overflow-y:auto; border-bottom:1px solid #ddd; }
+.chat-message { margin:8px 0; padding:8px 12px; border-radius:15px; max-width:80%; word-wrap:break-word;}
+.user { background:#007bff; color:white; align-self:flex-end; }
+.bot { background:#e5e5ea; color:black; align-self:flex-start; }
+.input-container { display:flex; padding:10px; }
+.input-container input { flex:1; padding:10px; border-radius:20px; border:1px solid #ccc; outline:none; }
+.input-container button { margin-left:10px; padding:10px 20px; border-radius:20px; border:none; background:#007bff; color:white; cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div id="chatBox" class="chat-box"></div>
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+// Levenshtein distance for fuzzy matching
+function levenshtein(a, b) {
+    if(!a.length) return b.length;
+    if(!b.length) return a.length;
+    const matrix = Array.from({length: b.length + 1}, () => []);
+    for(let i=0;i<=b.length;i++) matrix[i][0]=i;
+    for(let j=0;j<=a.length;j++) matrix[0][j]=j;
+    for(let i=1;i<=b.length;i++){
+        for(let j=1;j<=a.length;j++){
+            if(b[i-1]===a[j-1]) matrix[i][j]=matrix[i-1][j-1];
+            else matrix[i][j]=Math.min(matrix[i-1][j]+1, matrix[i][j-1]+1, matrix[i-1][j-1]+1);
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
+function fuzzyIncludes(str, word) {
+    const words = str.split(/\s+/);
+    for(const w of words) if(levenshtein(w, word) <= 2) return true;
+    return false;
+}
+
+function fuzzyPhraseMatch(message, phrase) {
+    const msgWords = message.toLowerCase().split(/\s+/);
+    const phraseWords = phrase.toLowerCase().split(/\s+/);
+    let matches = 0;
+    for(let pw of phraseWords){
+        if(msgWords.some(mw => levenshtein(mw, pw) <= 2)) matches++;
+    }
+    return matches === phraseWords.length;
+}
+
+let conversation = [];
+
+// Knowledge base: Games first, then facts, tech, capitals, math, patterns, GPT explanation, small talk
+const knowledgeBase = [
+    // --- CHESS ---
+    {keywords:["chess","how","play"], 
+     answer:"Chess is a strategy board game for two players. Each player starts with 16 pieces: king, queen, bishops, knights, rooks, and pawns. The goal is to checkmate the opponent's king."},
+    {keywords:["chess","how","move"], 
+     answer:"Each chess piece moves differently: Pawns move forward 1 square (2 on first move), Knights move in an L shape, Bishops move diagonally, Rooks move straight, Queen moves straight or diagonal, King moves 1 square in any direction."},
+    {keywords:["checkmate","chess"], 
+     answer:"Checkmate happens when the opponent's king is under threat and cannot escape. Plan moves to trap the king with no safe squares."},
+    {keywords:["check","chess"], 
+     answer:"A check is when the opponent's king is under attack. You must respond by moving the king, blocking the attack, or capturing the threatening piece."},
+
+    // --- OTHER GAMES ---
+    {keywords:["pingpong","how","play"], answer:"Pingpong is played with a paddle and small ball. Hit the ball over the net and try to score points."},
+    {keywords:["ping","pong"], answer:"Pingpong is played with a paddle and small ball. Hit the ball over the net and try to score points."},
+    {keywords:["tic","tac","toe","how","play"], answer:"Tic-tac-toe is played on a 3x3 grid. Two players take turns marking X or O. The first to get three in a row wins."},
+    {keywords:["checkers","how","play"], answer:"Checkers is a board game for two players. Pieces move diagonally and capture opponent pieces by jumping over them. The goal is to capture all opponent pieces."},
+    {keywords:["football","how","play"], answer:"Football is a team sport where two teams try to score points by moving the ball into the opponent's end zone. Players can run, pass, or kick the ball."},
+    {keywords:["basketball","how","play"], answer:"Basketball is played between two teams of five players each. The goal is to score points by shooting the ball into the opponent's hoop."},
+    {keywords:["soccer","how","play"], answer:"Soccer is played by two teams of eleven players. The goal is to score by getting the ball into the opponent's goal using any part of the body except hands (goalkeepers are an exception)."},
+    {keywords:["cards","how","play"], answer:"Card games have many variations. Generally, players use a deck of cards and follow specific rules depending on the game, like Poker, Rummy, or Solitaire."},
+
+    // --- Capitals ---
+    {keywords:["capital","virginia"], answer:"Richmond is the capital of Virginia."},
+    {keywords:["capital","california"], answer:"Sacramento is the capital of California."},
+    {keywords:["capital","texas"], answer:"Austin is the capital of Texas."},
+
+    // --- Math & Science ---
+    {keywords:["what","is","pi"], answer:"Pi is approximately 3.14159."},
+    {keywords:["what","is","square","root","of","4"], answer:"The square root of 4 is 2."},
+    {keywords:["largest","planet"], answer:"Jupiter is the largest planet in our solar system."},
+    {keywords:["fastest","land","animal"], answer:"The cheetah is the fastest land animal."},
+    {keywords:["who","discovered","america"], answer:"Christopher Columbus discovered America in 1492."},
+
+    // --- Tech ---
+    {keywords:["what","is","chatgpt"], answer:"ChatGPT is an AI model that can chat, answer questions, and help with writing."},
+    {keywords:["what","is","css"], answer:"CSS is used to style HTML content on a webpage."},
+    {keywords:["what","is","javascript"], answer:"JavaScript makes webpages interactive."},
+    {keywords:["what","is","html"], answer:"HTML structures content on webpages."},
+
+    // --- Patterns / AI reasoning ---
+    {keywords:["how","do","you","know","so","many","questions"], answer:"I know many questions because I’ve learned patterns from a huge amount of text. I look at language patterns to answer smartly."},
+
+    // --- GPT explanation ---
+    {keywords:["how","do","you","work","gpt","ai"], answer:`I can tell you how GPT works:
+I run on high-end servers with GPUs, not in your browser.
+I have hundreds of billions of parameters and massive pre-trained weights.
+I compute responses in real time, using everything I've learned from text.
+I generalize patterns, so I can answer questions I've never seen exactly before.`},
+    {keywords:["how","are","you","so","smart"], answer:`I run on high-end servers with GPUs, not in your browser.
+I have hundreds of billions of parameters and massive pre-trained weights.
+I compute responses in real time, using everything I've learned from text.
+I generalize patterns, so I can answer questions I've never seen exactly before.`},
+
+    // --- Yes response ---
+    {keywords:["yes"], answer:"Yes!"},
+
+    // --- Small talk ---
+    {keywords:["hi"], answer:"Hi there! How can I help you today?"},
+    {keywords:["hello"], answer:"Hello! How can I assist you today?"},
+    {keywords:["how","are","you"], answer:"I'm doing great, thanks for asking! How about you?"}
+];
+
+function getBotReply(message){
+    conversation.push({role:'user', text:message});
+    const msg = message.toLowerCase().trim();
+    let botReply = "";
+
+    // Knowledge base match
+    for(const item of knowledgeBase){
+        if(item.keywords.every(k => fuzzyIncludes(msg,k)) || fuzzyPhraseMatch(msg,item.keywords.join(" "))){
+            botReply = item.answer;
+            conversation.push({role:'bot', text:botReply});
+            return botReply;
+        }
+    }
+
+    // Math evaluation
+    if(msg.match(/^[0-9+\-*/(). ]+$/)){
+        try{const ans=eval(msg); botReply="The answer is "+ans; conversation.push({role:'bot', text:botReply}); return botReply;}catch{return "I couldn't calculate that!";}
+    }
+
+    // Fallback responses
+    const responses = [
+        "That's interesting! Can you tell me more?",
+        "I see, go on...",
+        "Hmm, I need to think about that...",
+        "Fascinating! Please continue.",
+        "Absolutely! Can you explain further?",
+        "Interesting perspective!",
+        "Oh really? Tell me more...",
+        "I understand. What else can you say?"
+    ];
+    botReply = responses[Math.floor(Math.random()*responses.length)];
+    conversation.push({role:'bot', text:botReply});
+    return botReply;
+}
+
+function sendMessage(){
+    const input=document.getElementById('userInput');
+    const message=input.value.trim();
+    if(!message) return;
+    addMessage('user',message);
+    input.value='';
+    addMessage('bot','...');
+    setTimeout(()=>{
+        const botReply=getBotReply(message);
+        chatBox.lastChild.innerText=botReply;
+        chatBox.scrollTop=chatBox.scrollHeight;
+    },10);
+}
+
+function addMessage(sender,text){
+    const chatBox=document.getElementById('chatBox');
+    const msg=document.createElement('div');
+    msg.className=`chat-message ${sender}`;
+    msg.innerText=text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop=chatBox.scrollHeight;
+}
+
+document.getElementById('userInput').addEventListener('keypress',function(e){if(e.key==='Enter') sendMessage();});
+
+// Initial greeting
+addMessage('bot',"Hello! I'm your ultra smart offline chatbot. I know patterns, GPT reasoning, and how to play many games! Ask me anything!");
+</script>
+
+</body>
+</html>

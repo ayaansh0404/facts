@@ -121,75 +121,162 @@
             padding: 30px;
             height: 200;
         }
-       .navbar {
-    padding: 12px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(90deg, teal, darkcyan);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
 
-.navbar .logo {
-    font-size: 22px;
-    font-weight: bold;
-    white-space: nowrap;
-}
+        /* Fun & Games Section */
+        #fun-games {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 18px;
-    margin: 0;
-    padding: 0;
-    flex-wrap: wrap;
-}
+        /* Carousel container */
+        #fun-games .carousel {
+            overflow: hidden;
+            border: 2px solid #888;
+            border-radius: 12px;
+        }
 
-.nav-links li a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 50px;
-    transition: 0.3s;
-}
+        /* Track scrolls horizontally */
+        #fun-games .carousel-track {
+            display: flex;
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
 
-.nav-links li a:hover {
-    background-color: yellow;
-    color: black;
-}
+        /* Each carousel item */
+        #fun-games .carousel-item {
+            min-width: 100%;
+            scroll-snap-align: start;
+            padding: 40px;
+            box-sizing: border-box;
+            background-color: lightyellow;
+            border-right: 1px solid #ccc;
+        }
 
-@media (max-width: 768px) {
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
+        /* Buttons inside carousel items */
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: crimson;
+            color: white;
+            font-weight: bold;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        #fun-games .button:hover {
+            background-color: yellow;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* Optional: hide scrollbar for clean look */
+        #fun-games .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+            /* white-space: nowrap; */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            /* vertically center logo and links */
+            justify-content: space-between;
+            /* logo left, links right */
+            flex-wrap: nowrap;
+            /* never wrap */
+            padding: 12px 30px;
+            background: linear-gradient(90deg, teal, darkcyan);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+            /* prevent logo from breaking */
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            flex-wrap: nowrap;
+            /* keep all links in one row */
+            margin: 0;
+            padding: 0;
+            overflow-x: auto;
+            /* allow horizontal scroll if links overflow */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 50px;
+            transition: 0.3s;
+            white-space: nowrap;
+            /* prevent link text from breaking */
+        }
+
+        .nav-links li a:hover {
+            background-color: yellow;
+            color: black;
+        }
+        button:hover{
+            background-color: yellow;
+            color: black;
+        }
+
+        /* Keep links in one row even on mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
 
 
-.animal-card img {
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
-}
-.animal-card{
-    border: 1px solid;
-  padding: 10px;
-  box-shadow: 2px 5px #888888;
-}
-p{
-  font-family: "Bad Script", cursive;
-}
-html {
-  scroll-padding-top: 100px; /* this matches your navbar height */
-}
 
+
+        .animal-card img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .animal-card {
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 2px 5px #888888;
+        }
+
+        p {
+            font-family: "Bad Script", cursive;
+        }
+
+        html {
+            scroll-padding-top: 100px;
+        }
+        body.fade-out {
+        opacity: 0;
+        transition: opacity 0.5s;
+        }
 
     </style>
-   
+
     <script src="https://kit.fontawesome.com/550ac86c53.js" crossorigin="anonymous"></script>
     <script>
         let name = prompt("What is your name") || "____";
@@ -215,28 +302,38 @@ html {
         function d() { alert(`So... ${name} wants to have a quiz, right?`); }
         function goToQuiz(url) { d(); window.location.href = url; }
     </script>
+    <script>
+function goToFunGames() {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        window.location.href = "https://ayaansh0404.github.io/facts/fun.html";
+    }, 500); // matches the CSS transition duration
+}
+</script>
+
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">🐾 Animals</div>
+        <div class="logo">🐾 Animal's</div>
         <ul class="nav-links">
             <li><a href="#t-rex">T-Rex</a></li>
             <li><a href="#golden-eagle">Golden Eagle</a></li>
             <li><a href="#deers">Deers</a></li>
             <li><a href="#komodo-dragon">Komodo Dragon</a></li>
             <li><a href="#archerfish">Archerfish</a></li>
-            <li><a href="#beetle">Beetle</a></li>
+            <li><a href="#beetle">Bombardier Beetle</a></li>
             <li><a href="#jaguar">Jaguar</a></li>
             <li><a href="#titanoboa">Titanoboa</a></li>
             <li><a href="#archaeopteryx">Archaeopteryx</a></li>
             <li><a href="#elasmosaurus">Elasmosaurus</a></li>
             <li><a href="#e">Quiz</a></li>
-            <li><a href="https://ayaansh0404.github.io/facts/fun.html">Fun & Games</a></li>
+            <li><a href="#fun-games">Fun & Games</a></li>
         </ul>
     </nav>
 
+    <span class="px-5 m-5">scrollable↗</span>
     <h1 class="welcome"><u>Animals 😉</u></h1>
 
 
@@ -245,14 +342,14 @@ html {
         <img src="https://img.freepik.com/premium-photo/trex-jungle-angry-dinosaur-generative-ai-generated-art_853163-161.jpg"
             width="200px">
         <p>Tyrannosaurus rex was a tall dinosaur. <br>
-It stood about 18 feet tall. <br>
-Tyrannosaurus rex lived during the late "cretaceous Period" <br>
-It lived about 70 milion years ago <br>
-woodlands in western North America. <br>
-They were a predator.It spent most of it's time <br>
-hunting. They also were a scavenger. They looked for dead animals
+            It stood about 18 feet tall. <br>
+            Tyrannosaurus rex lived during the late "cretaceous Period" <br>
+            It lived about 70 milion years ago <br>
+            woodlands in western North America. <br>
+            They were a predator.It spent most of it's time <br>
+            hunting. They also were a scavenger. They looked for dead animals
 
-</p>
+        </p>
     </div>
 
     <div class="animal-card" id="golden-eagle">
@@ -260,39 +357,43 @@ hunting. They also were a scavenger. They looked for dead animals
         <img src="https://png.pngtree.com/png-clipart/20240310/original/pngtree-eagle-face-ai-generated-png-image_14556837.png"
             width="200px">
         <p>The Golden eagle is a large dark brown bird <br>
-of prey. with a wing span that can reach 7ft and th ability <br>
-to fly up to 198 mph. <br>
-They live 20 to 30 years in the wild, <br>
-but in human care they can live up to 45 to 68 years. <br>
-they also build enormous nests, they also have great eye sight. <br>
-They are known as the king of bird,</p>
+            of prey. with a wing span that can reach 7ft and th ability <br>
+            to fly up to 198 mph. <br>
+            They live 20 to 30 years in the wild, <br>
+            but in human care they can live up to 45 to 68 years. <br>
+            they also build enormous nests, they also have great eye sight. <br>
+            They are known as the king of bird,</p>
     </div>
 
     <div class="animal-card" id="deers">
         <h2>Deers</h2>
         <img src="https://cdn.pixabay.com/photo/2024/03/05/18/00/ai-generated-8614995_1280.png" width="35%">
         <p>Deers are even-toed, ruminant mammals belonging to the family Cervidae. <br>
-They are known for being calm and gentle animals. <br>when they see a deer out in the wild.
-Deers are long-legged, thin animals. Their coloration is often grayish-brown to brownish-red, with light brown <br> or cream-colored undersides and only Male deers grow antlers.
+            They are known for being calm and gentle animals. <br>when they see a deer out in the wild.
+            Deers are long-legged, thin animals. Their coloration is often grayish-brown to brownish-red, with light
+            brown <br> or cream-colored undersides and only Male deers grow antlers.
 
 
-</p>
+        </p>
     </div>
 
     <div class="animal-card" id="komodo-dragon">
         <h2>Komodo Dragon</h2>
         <img src="https://cdn.pixabay.com/photo/2023/10/17/13/57/ai-generated-8321356_1280.jpg" width="35%">
-        <p>The Komodo dragon is a large reptile of the monitor lizard family Varanidae that is endemic to the Indonesian islands <br>
-of Komodo, Rinca, Flores, Gili Dasami, and Gili Motang.[5] It is the largest extant <br>species of lizard, with the males growing to a maximum length of 3 m (10 ft) and weighing up to 150 kg (330 lb).</p>
+        <p>The Komodo dragon is a large reptile of the monitor lizard family Varanidae that is endemic to the Indonesian
+            islands <br>
+            of Komodo, Rinca, Flores, Gili Dasami, and Gili Motang.[5] It is the largest extant <br>species of lizard,
+            with the males growing to a maximum length of 3 m (10 ft) and weighing up to 150 kg (330 lb).</p>
     </div>
 
     <div class="animal-card">
         <h2 id="archerfish">Archerfish</h2>
         <img src="https://www.aquariumofpacific.org/images/made_new/images-uploads-Archerfish_by_Robin_Riggs_600_q85.jpg"
             width="250">
-        <p>Archerfish catch their prey by shooting or spitting water as far as 2-3 metres, in order to knock them into the water to eat!<br>
-It shoots its prey much like an archer. <br>
-Its narrow profile and eyesight <br>helps to shoot with accuracy.</p>
+        <p>Archerfish catch their prey by shooting or spitting water as far as 2-3 metres, in order to knock them into
+            the water to eat!<br>
+            It shoots its prey much like an archer. <br>
+            Its narrow profile and eyesight <br>helps to shoot with accuracy.</p>
     </div>
 
     <div class="animal-card" id="beetle">
@@ -300,10 +401,11 @@ Its narrow profile and eyesight <br>helps to shoot with accuracy.</p>
         <img src="https://img.freepik.com/premium-photo/bombardier-beetle-spraying-hot-chemicals-defensive-mechanism-visualized-scientific_1314184-6481.jpg"
             width="250">
         <p>More than 40 species of bombardier beetles are found in the United States. <br>
-Each has blue elytra <br>(wing coverings)
-and a reddish head and limbs. They are considered remarkable because of their ability <br>to shoot a boiling, corrosive substance at predators
+            Each has blue elytra <br>(wing coverings)
+            and a reddish head and limbs. They are considered remarkable because of their ability <br>to shoot a
+            boiling, corrosive substance at predators
 
-</p>
+        </p>
     </div>
 
     <div class="animal-card" id="jaguar">
@@ -311,10 +413,10 @@ and a reddish head and limbs. They are considered remarkable because of their ab
         <img src="https://static.vecteezy.com/system/resources/previews/038/008/866/large_2x/ai-generated-jaguar-high-quality-image-free-photo.jpg"
             width="35%">
         <p>Jaguars, the largest cats in the Americas, are powerful, solitary hunters<br>
-with unique rosette spots,<br>
-they can jump up to 20 feet, they have strong bites, and a love for swimming, though their numbers
-are declining and they're <br>near-threatened,
-says Defenders of Wildlife.</p>
+            with unique rosette spots,<br>
+            they can jump up to 20 feet, they have strong bites, and a love for swimming, though their numbers
+            are declining and they're <br>near-threatened,
+            says Defenders of Wildlife.</p>
     </div>
 
     <div class="animal-card" id="titanoboa">
@@ -322,11 +424,12 @@ says Defenders of Wildlife.</p>
         <img src="https://img.freepik.com/premium-photo/titanoboa-is-angry-background-wallpaper-ai-generated_1087980-1053.jpg?w=2000"
             width="35%">
         <p>Titanoboa, the largest snake ever discovered, lived about 60 to 58 million years ago during the <br>
-Paleocene epoch. It could grow up to
-12.8 meters (42 feet) long and <br>weigh between 730 and 1,135 kilograms (1,600 to 2,500 pounds).
-This prehistoric snake thrived in ancient tropical rainforests, <br>likely preying on large animals like fish and crocodiles.
+            Paleocene epoch. It could grow up to
+            12.8 meters (42 feet) long and <br>weigh between 730 and 1,135 kilograms (1,600 to 2,500 pounds).
+            This prehistoric snake thrived in ancient tropical rainforests, <br>likely preying on large animals like
+            fish and crocodiles.
 
-</p>
+        </p>
     </div>
     <div class="animal-card" id="archaeopteryx">
         <h2>Archaeopteryx</h2>
@@ -335,26 +438,32 @@ This prehistoric snake thrived in ancient tropical rainforests, <br>likely preyi
         <p>
             Archaeopteryx, a Jurassic-era animal about the size of a raven, <br>is one of the most famous fossils in the
             world. It is widely considered a transitional form between dinosaurs and modern birds due to its combination
-            <br>of bird-like and reptilian features</p>
+            <br>of bird-like and reptilian features
+        </p>
     </div>
     <div class="animal-card" id="elasmosaurus">
         <h2>Elasmosaurus</h2>
-        <img src="https://thumbs.dreamstime.com/b/elasmosaurus-undersea-was-aquatic-dinosaur-lived-cretaceous-period-d-render-55980393.jpg" width="35%">
+        <img src="https://www.shutterstock.com/image-photo/elasmosaurus-260nw-2521413163.jpg" width="35%">
         <p>
-            It ate crabs, mollusks, and fish. It competed for food with another group of marine predators of that time called mosasaurs. <br>Because of Elasmosaurus's long neck, short tail, <br>and turtle-shaped body, it could not swim very fast. However, <br>Elasmosaurus probably used its long neck to take prey by surprise.
+            It ate crabs, mollusks, and fish. It competed for food with another group of marine predators of that time
+            called mosasaurs. <br>Because of Elasmosaurus's long neck, short tail, <br>and turtle-shaped body, it could
+            not swim very fast. However, <br>Elasmosaurus probably used its long neck to take prey by surprise.
         </p>
     </div>
 
-  
+    <!-- hi -->
     <div id="e" class="animal-card">
         <h1>QUIZ TIME!</h1>
-        <a class="text-light" href="https://ayaansh0404.github.io/facts/quiz1ani.html"><button class="text-light">Quiz
+        <a class="" href="https://ayaansh0404.github.io/facts/quiz1ani.html"><button class="">Quiz
                 1</button></a>
         <button>Quiz 2</button>
         <button>Quiz 3</button>
     </div>
-
-    
+<div id="fun-games" class="animal-card">
+    <h1>Fun & Games 🎮</h1>
+    <p>Here you can play the best... ok maybe not the <b><u><i>best</i></u></b> games but still pretty fun!</p>
+   <button onclick="goToFunGames()">Play🎮</button>
+   </div>
     <footer>
         <p>By Ayaansh Agrawal (started in 2025)</p>
     </footer>
