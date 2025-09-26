@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultra Smart Offline Chatbot</title>
+<title>Ultra Smart Hybrid Chatbot</title>
 <style>
 body { font-family: Arial; background:#f0f0f0; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;}
-.chat-container { width:500px; max-width:95%; background:white; border-radius:10px; display:flex; flex-direction:column; box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.chat-container { width:600px; max-width:95%; background:white; border-radius:10px; display:flex; flex-direction:column; box-shadow:0 4px 12px rgba(0,0,0,0.2);}
 .chat-box { flex:1; padding:10px; overflow-y:auto; border-bottom:1px solid #ddd; }
 .chat-message { margin:8px 0; padding:8px 12px; border-radius:15px; max-width:80%; word-wrap:break-word;}
 .user { background:#007bff; color:white; align-self:flex-end; }
@@ -27,166 +27,133 @@ body { font-family: Arial; background:#f0f0f0; display:flex; justify-content:cen
 </div>
 
 <script>
-// Levenshtein distance for fuzzy matching
-function levenshtein(a, b) {
-    if(!a.length) return b.length;
-    if(!b.length) return a.length;
-    const matrix = Array.from({length: b.length + 1}, () => []);
-    for(let i=0;i<=b.length;i++) matrix[i][0]=i;
-    for(let j=0;j<=a.length;j++) matrix[0][j]=j;
-    for(let i=1;i<=b.length;i++){
-        for(let j=1;j<=a.length;j++){
-            if(b[i-1]===a[j-1]) matrix[i][j]=matrix[i-1][j-1];
-            else matrix[i][j]=Math.min(matrix[i-1][j]+1, matrix[i][j-1]+1, matrix[i-1][j-1]+1);
-        }
-    }
-    return matrix[b.length][a.length];
-}
-
-function fuzzyIncludes(str, word) {
-    const words = str.split(/\s+/);
-    for(const w of words) if(levenshtein(w, word) <= 2) return true;
-    return false;
-}
-
-function fuzzyPhraseMatch(message, phrase) {
-    const msgWords = message.toLowerCase().split(/\s+/);
-    const phraseWords = phrase.toLowerCase().split(/\s+/);
-    let matches = 0;
-    for(let pw of phraseWords){
-        if(msgWords.some(mw => levenshtein(mw, pw) <= 2)) matches++;
-    }
-    return matches === phraseWords.length;
-}
-
-let conversation = [];
-
-// Knowledge base: Games first, then facts, tech, capitals, math, patterns, GPT explanation, small talk
-const knowledgeBase = [
-    // --- CHESS ---
-    {keywords:["chess","how","play"], 
-     answer:"Chess is a strategy board game for two players. Each player starts with 16 pieces: king, queen, bishops, knights, rooks, and pawns. The goal is to checkmate the opponent's king."},
-    {keywords:["chess","how","move"], 
-     answer:"Each chess piece moves differently: Pawns move forward 1 square (2 on first move), Knights move in an L shape, Bishops move diagonally, Rooks move straight, Queen moves straight or diagonal, King moves 1 square in any direction."},
-    {keywords:["checkmate","chess"], 
-     answer:"Checkmate happens when the opponent's king is under threat and cannot escape. Plan moves to trap the king with no safe squares."},
-    {keywords:["check","chess"], 
-     answer:"A check is when the opponent's king is under attack. You must respond by moving the king, blocking the attack, or capturing the threatening piece."},
-
-    // --- OTHER GAMES ---
-    {keywords:["pingpong","how","play"], answer:"Pingpong is played with a paddle and small ball. Hit the ball over the net and try to score points."},
-    {keywords:["ping","pong"], answer:"Pingpong is played with a paddle and small ball. Hit the ball over the net and try to score points."},
-    {keywords:["tic","tac","toe","how","play"], answer:"Tic-tac-toe is played on a 3x3 grid. Two players take turns marking X or O. The first to get three in a row wins."},
-    {keywords:["checkers","how","play"], answer:"Checkers is a board game for two players. Pieces move diagonally and capture opponent pieces by jumping over them. The goal is to capture all opponent pieces."},
-    {keywords:["football","how","play"], answer:"Football is a team sport where two teams try to score points by moving the ball into the opponent's end zone. Players can run, pass, or kick the ball."},
-    {keywords:["basketball","how","play"], answer:"Basketball is played between two teams of five players each. The goal is to score points by shooting the ball into the opponent's hoop."},
-    {keywords:["soccer","how","play"], answer:"Soccer is played by two teams of eleven players. The goal is to score by getting the ball into the opponent's goal using any part of the body except hands (goalkeepers are an exception)."},
-    {keywords:["cards","how","play"], answer:"Card games have many variations. Generally, players use a deck of cards and follow specific rules depending on the game, like Poker, Rummy, or Solitaire."},
-
-    // --- Capitals ---
-    {keywords:["capital","virginia"], answer:"Richmond is the capital of Virginia."},
-    {keywords:["capital","california"], answer:"Sacramento is the capital of California."},
-    {keywords:["capital","texas"], answer:"Austin is the capital of Texas."},
-
-    // --- Math & Science ---
-    {keywords:["what","is","pi"], answer:"Pi is approximately 3.14159."},
-    {keywords:["what","is","square","root","of","4"], answer:"The square root of 4 is 2."},
-    {keywords:["largest","planet"], answer:"Jupiter is the largest planet in our solar system."},
-    {keywords:["fastest","land","animal"], answer:"The cheetah is the fastest land animal."},
-    {keywords:["who","discovered","america"], answer:"Christopher Columbus discovered America in 1492."},
-
-    // --- Tech ---
-    {keywords:["what","is","chatgpt"], answer:"ChatGPT is an AI model that can chat, answer questions, and help with writing."},
-    {keywords:["what","is","css"], answer:"CSS is used to style HTML content on a webpage."},
-    {keywords:["what","is","javascript"], answer:"JavaScript makes webpages interactive."},
-    {keywords:["what","is","html"], answer:"HTML structures content on webpages."},
-
-    // --- Patterns / AI reasoning ---
-    {keywords:["how","do","you","know","so","many","questions"], answer:"I know many questions because I’ve learned patterns from a huge amount of text. I look at language patterns to answer smartly."},
-
-    // --- GPT explanation ---
-    {keywords:["how","do","you","work","gpt","ai"], answer:`I can tell you how GPT works:
-I run on high-end servers with GPUs, not in your browser.
-I have hundreds of billions of parameters and massive pre-trained weights.
-I compute responses in real time, using everything I've learned from text.
-I generalize patterns, so I can answer questions I've never seen exactly before.`},
-    {keywords:["how","are","you","so","smart"], answer:`I run on high-end servers with GPUs, not in your browser.
-I have hundreds of billions of parameters and massive pre-trained weights.
-I compute responses in real time, using everything I've learned from text.
-I generalize patterns, so I can answer questions I've never seen exactly before.`},
-
-    // --- Yes response ---
-    {keywords:["yes"], answer:"Yes!"},
-
-    // --- Small talk ---
-    {keywords:["hi"], answer:"Hi there! How can I help you today?"},
-    {keywords:["hello"], answer:"Hello! How can I assist you today?"},
-    {keywords:["how","are","you"], answer:"I'm doing great, thanks for asking! How about you?"}
+// === Expanded Offline Knowledge Base (sample 50+ entries, follow same pattern for 500+) ===
+const offlineKB = [
+  {keywords:["hi","hello","hey"], answer:"Hi there! How can I help you today?"},
+  {keywords:["how are you","how r you"], answer:"I'm doing great, thanks! How about you?"},
+  {keywords:["yes"], answer:"Yes!"},
+  {keywords:["no"], answer:"No."},
+  {keywords:["what is css"], answer:"CSS (Cascading Style Sheets) is used to style HTML content with colors, layouts, fonts, and more."},
+  {keywords:["what is html"], answer:"HTML (HyperText Markup Language) is used to structure web pages and content."},
+  {keywords:["what is javascript","what is js"], answer:"JavaScript is a programming language that runs in the browser and allows interactive content."},
+  {keywords:["chess","how to play chess"], answer:"Chess is a strategy board game for two players. Each player has 16 pieces: king, queen, bishops, knights, rooks, and pawns. Goal: checkmate the opponent's king."},
+  {keywords:["how chess pieces move","chess moves"], answer:"Pawns move 1 square forward (2 on first move), Knights move in L-shape, Bishops diagonally, Rooks straight, Queen straight or diagonal, King 1 square any direction."},
+  {keywords:["how to checkmate"], answer:"Checkmate happens when the opponent's king is under threat and cannot escape capture on the next move."},
+  {keywords:["tic tac toe","how to play tic tac toe"], answer:"Tic-tac-toe is played on a 3x3 grid. Two players take turns marking X or O. First to get three in a row wins."},
+  {keywords:["pingpong","table tennis"], answer:"Pingpong is played with a paddle and small ball. Hit the ball over the net and try to score points. First to 11 (win by 2) wins."},
+  {keywords:["tennis"], answer:"Tennis is played between two or four players. Hit the ball over the net using a racket aiming to land it inside your opponent's court. Points: 15, 30, 40, game."},
+  {keywords:["losing","how to lose"], answer:"If your opponent wins or you fail the objective, you lose the game."},
+  {keywords:["pi"], answer:"Pi is approximately 3.14159."},
+  {keywords:["how many states","usa"], answer:"There are 50 states in the United States of America."},
+  {keywords:["water","boiling point"], answer:"Water boils at 100°C (212°F) at sea level."},
+  {keywords:["gpt","how gpt works"], answer:"I run on high-end servers with GPUs. I have billions of parameters and pre-trained weights. I generalize patterns to answer new questions."},
+  {keywords:["tell me a joke","joke"], answer:"Why did the computer go to the doctor? Because it caught a virus!"},
+  {keywords:["fun fact","fact"], answer:"Honey never spoils. Archaeologists have found edible honey in ancient Egyptian tombs."},
+  {keywords:["python","what is python"], answer:"Python is a versatile programming language used for web, AI, data analysis, and more."},
+  {keywords:["java"], answer:"Java is a high-level programming language used for applications, web, and mobile."},
+  {keywords:["capital of usa","washington"], answer:"The capital of the United States is Washington, D.C."},
+  {keywords:["capital of virginia"], answer:"The capital of Virginia is Richmond."},
+  {keywords:["moon"], answer:"The Moon is Earth's only natural satellite."},
+  {keywords:["sun"], answer:"The Sun is the star at the center of our solar system."},
+  {keywords:["earth"], answer:"Earth is the third planet from the Sun in our solar system."},
+  {keywords:["mars"], answer:"Mars is known as the Red Planet."},
+  {keywords:["venus"], answer:"Venus is the second planet from the Sun."},
+  {keywords:["mercury"], answer:"Mercury is the closest planet to the Sun."},
+  {keywords:["jupiter"], answer:"Jupiter is the largest planet in our solar system."},
+  {keywords:["saturn"], answer:"Saturn is famous for its rings."},
+  {keywords:["uranus"], answer:"Uranus is the seventh planet from the Sun."},
+  {keywords:["neptune"], answer:"Neptune is the eighth planet from the Sun."},
+  {keywords:["black hole"], answer:"A black hole is a region in space where gravity is so strong that nothing can escape."},
+  {keywords:["gravity"], answer:"Gravity is a force that attracts two bodies toward each other."},
+  {keywords:["photosynthesis"], answer:"Photosynthesis is the process by which plants convert sunlight into energy."},
+  {keywords:["evolution"], answer:"Evolution is the process by which species change over time through natural selection."},
+  {keywords:["atom"], answer:"An atom is the smallest unit of matter."},
+  {keywords:["molecule"], answer:"A molecule is a group of atoms bonded together."},
+  {keywords:["speed of light"], answer:"The speed of light is approximately 299,792 km per second."},
+  {keywords:["computer"], answer:"A computer is an electronic device that processes data."},
+  {keywords:["internet"], answer:"The internet is a global network connecting millions of computers."},
+  {keywords:["email"], answer:"Email is a method of sending digital messages over the internet."},
+  {keywords:["browser"], answer:"A browser is a software application used to access websites."},
+  {keywords:["search engine"], answer:"A search engine helps you find information on the internet."},
+  {keywords:["google"], answer:"Google is a popular search engine."},
+  {keywords:["bing"], answer:"Bing is Microsoft's search engine."},
+  {keywords:["youtube"], answer:"YouTube is a platform for watching and sharing videos."},
+  {keywords:["facebook"], answer:"Facebook is a social media platform."},
+  {keywords:["twitter"], answer:"Twitter (X) is a social media platform for short messages."},
+  {keywords:["instagram"], answer:"Instagram is a platform for sharing photos and videos."},
+  {keywords:["linkedin"], answer:"LinkedIn is a professional networking platform."},
+  {keywords:["amazon"], answer:"Amazon is an e-commerce and cloud computing company."},
+  {keywords:["apple"], answer:"Apple is a technology company that makes iPhones, Macs, and more."},
+  {keywords:["microsoft"], answer:"Microsoft is a software and technology company."},
+  {keywords:["tesla"], answer:"Tesla makes electric cars and renewable energy products."}
+  // Continue the pattern to reach 500+ offline entries
 ];
 
-function getBotReply(message){
-    conversation.push({role:'user', text:message});
-    const msg = message.toLowerCase().trim();
-    let botReply = "";
+// === Google Custom Search Config ===
+const GOOGLE_API_KEY = "YOUR_GOOGLE_API_KEY"; // Replace with your key
+const GOOGLE_CX = "YOUR_SEARCH_ENGINE_ID";     // Replace with your CX
 
-    // Knowledge base match
-    for(const item of knowledgeBase){
-        if(item.keywords.every(k => fuzzyIncludes(msg,k)) || fuzzyPhraseMatch(msg,item.keywords.join(" "))){
-            botReply = item.answer;
-            conversation.push({role:'bot', text:botReply});
-            return botReply;
-        }
+async function googleSearch(query) {
+  try {
+    const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if(data.items && data.items.length > 0){
+      return data.items[0].snippet + " ... (from Google)";
+    } else {
+      return "I couldn't find an answer online.";
     }
+  } catch(e) {
+    console.error(e);
+    return "Error fetching online answer.";
+  }
+}
 
-    // Math evaluation
-    if(msg.match(/^[0-9+\-*/(). ]+$/)){
-        try{const ans=eval(msg); botReply="The answer is "+ans; conversation.push({role:'bot', text:botReply}); return botReply;}catch{return "I couldn't calculate that!";}
+// === Chat Functions ===
+function addMessage(sender, text){
+  const chatBox = document.getElementById('chatBox');
+  const msg = document.createElement('div');
+  msg.className = `chat-message ${sender}`;
+  msg.innerText = text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function findOfflineAnswer(message){
+  message = message.toLowerCase();
+  for(const entry of offlineKB){
+    let match = entry.keywords.every(k => message.includes(k));
+    if(match) return entry.answer;
+  }
+  for(const entry of offlineKB){
+    for(const k of entry.keywords){
+      if(message.includes(k)) return entry.answer;
     }
-
-    // Fallback responses
-    const responses = [
-        "That's interesting! Can you tell me more?",
-        "I see, go on...",
-        "Hmm, I need to think about that...",
-        "Fascinating! Please continue.",
-        "Absolutely! Can you explain further?",
-        "Interesting perspective!",
-        "Oh really? Tell me more...",
-        "I understand. What else can you say?"
-    ];
-    botReply = responses[Math.floor(Math.random()*responses.length)];
-    conversation.push({role:'bot', text:botReply});
-    return botReply;
+  }
+  return null;
 }
 
-function sendMessage(){
-    const input=document.getElementById('userInput');
-    const message=input.value.trim();
-    if(!message) return;
-    addMessage('user',message);
-    input.value='';
-    addMessage('bot','...');
-    setTimeout(()=>{
-        const botReply=getBotReply(message);
-        chatBox.lastChild.innerText=botReply;
-        chatBox.scrollTop=chatBox.scrollHeight;
-    },10);
+async function sendMessage(){
+  const input = document.getElementById('userInput');
+  const message = input.value.trim();
+  if(!message) return;
+
+  addMessage('user', message);
+  input.value = '';
+  addMessage('bot', '...');
+
+  let answer = findOfflineAnswer(message);
+  if(answer){
+    chatBox.lastChild.innerText = answer;
+  } else {
+    const googleAnswer = await googleSearch(message);
+    chatBox.lastChild.innerText = googleAnswer;
+  }
 }
 
-function addMessage(sender,text){
-    const chatBox=document.getElementById('chatBox');
-    const msg=document.createElement('div');
-    msg.className=`chat-message ${sender}`;
-    msg.innerText=text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop=chatBox.scrollHeight;
-}
-
-document.getElementById('userInput').addEventListener('keypress',function(e){if(e.key==='Enter') sendMessage();});
-
-// Initial greeting
-addMessage('bot',"Hello! I'm your ultra smart offline chatbot. I know patterns, GPT reasoning, and how to play many games! Ask me anything!");
+document.getElementById('userInput').addEventListener('keypress', function(e){
+  if(e.key==='Enter') sendMessage();
+});
 </script>
-
 </body>
 </html>
